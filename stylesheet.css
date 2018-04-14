@@ -1,0 +1,56 @@
+@import url("reset.css");
+
+body {
+	font-family: Trebuchet MS, Verdana, serif;
+	font-size: 12px;
+	padding: 2px;
+	margin: 0;
+	background-color: #fff;
+	color: #000;
+	line-height: 1.5;
+}
+
+h1 {
+	color: #000;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	font-size: 18px;
+}
+
+h2 {
+	padding-top: 20px;
+	color: #8e8e8e;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	font-size: 12px;
+}
+
+#content {
+	margin-top: 7%;
+	margin-left: 7%;
+	margin-right: 7%;
+}
+
+#contact {
+	text-decoration: none;
+	outline: none;
+	color: #000;
+	margin: 10px;
+	line-height: 200%;
+}
+
+#menu {
+	margin: 1%;
+	color: #8e8e8e;
+}
+
+a, a:visited {
+	text-decoration: none;
+	outline: none;
+	color: #000;
+	margin: 5px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
