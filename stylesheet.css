@@ -57,12 +57,6 @@ a:hover {
 
 .email:before {
 	content: "\006d\0061\0069\006c\0040\0076\0069\006b\0074\006f\0072\006d\0061\0072\0075\006e\0061\002e\0063\006f\006d";
-	text-decoration: none;
-	outline: none;
-	color: #000;
-	margin: 5px;	
-	font-family: Trebuchet MS, Verdana, serif;
-	font-size: 20px;
 }
 
 .email {
