@@ -54,3 +54,7 @@ a, a:visited {
 a:hover {
 	text-decoration: underline;
 }
+
+.e-mail:before {
+  content: "\006a\0068\006f\006e\0040\0067\006d\0061\0069\006c\002e\0063\006f\006d";
+}
