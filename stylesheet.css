@@ -2,7 +2,7 @@
 
 body {
 	font-family: Trebuchet MS, Verdana, serif;
-	font-size: 12px;
+	font-size: 13px;
 	padding: 2px;
 	margin: 0;
 	background-color: #fff;
@@ -14,7 +14,7 @@ h1 {
 	color: #000;
 	margin-bottom: 5px;
 	margin-top: 10px;
-	font-size: 18px;
+	font-size: 19px;
 }
 
 h2 {
@@ -22,7 +22,7 @@ h2 {
 	color: #8e8e8e;
 	margin-bottom: 5px;
 	margin-top: 10px;
-	font-size: 12px;
+	font-size: 13px;
 }
 
 #content {
@@ -60,11 +60,5 @@ a:hover {
 }
 
 .email {
-	font-family: Trebuchet MS, Verdana, serif;
-	font-size: 12px;
-	padding: 2px;
-	margin: 0;
-	background-color: #fff;
-	color: #000;
-	line-height: 1.5;
+
 }
