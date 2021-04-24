@@ -60,10 +60,11 @@ a:hover {
 }
 
 .email {
-	text-decoration: none;
-	outline: none;
-	color: #000;
-	margin: 5px;	
 	font-family: Trebuchet MS, Verdana, serif;
 	font-size: 12px;
+	padding: 2px;
+	margin: 0;
+	background-color: #fff;
+	color: #000;
+	line-height: 1.5;
 }
