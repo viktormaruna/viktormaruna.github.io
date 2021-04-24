@@ -64,3 +64,12 @@ a:hover {
 	font-family: Trebuchet MS, Verdana, serif;
 	font-size: 20px;
 }
+
+.email {
+	text-decoration: none;
+	outline: none;
+	color: #000;
+	margin: 5px;	
+	font-family: Trebuchet MS, Verdana, serif;
+	font-size: 20px;
+}
