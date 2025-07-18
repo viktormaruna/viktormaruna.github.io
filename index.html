@@ -1,32 +1,274 @@
 
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Strict//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11-strict.dtd">
-<html version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd">
-	<head>
-		<title>Viktor Maruna</title>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-		<meta http-equiv="Content-Language" content="en" />
-		<meta name="description" content="Viktor Maruna">
-		<meta name="keywords" content="viktor maruna, viktormaruna, maruna">
-		<meta name="robots" content="index, follow">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI Focus</title>
+    <meta name="description" content="Viktor Maruna is a cloud solution architect and data engineer based in Slovakia, focusing on Data & AI solutions. Connect with me through email, LinkedIn, GitHub, and Signal.">
+    <meta name="keywords" content="viktor maruna, viktormaruna, maruna, cloud solution architect, data engineer, cloud computing, data engineering, data and ai, artificial intelligence, machine learning, slovakia">
+    <meta name="author" content="Viktor Maruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://viktormaruna.com">
+    <meta property="og:title" content="Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI Focus">
+    <meta property="og:description" content="Viktor Maruna is a cloud solution architect and data engineer based in Slovakia, focusing on Data & AI solutions. Connect with me through email, LinkedIn, GitHub, and Signal.">
+    <meta property="og:image" content="https://secure.gravatar.com/avatar/bb15a2e9748744487a135cb719c3126b">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://viktormaruna.com">
+    <meta property="twitter:title" content="Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI Focus">
+    <meta property="twitter:description" content="Viktor Maruna is a cloud solution architect and data engineer based in Slovakia, focusing on Data & AI solutions.">
+    <meta property="twitter:image" content="https://secure.gravatar.com/avatar/bb15a2e9748744487a135cb719c3126b">
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Theme and Performance -->
+    <meta name="theme-color" content="#fafafa">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://viktormaruna.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Viktor Maruna",
+        "jobTitle": "Cloud Solution Architect & Data Engineer",
+        "description": "Cloud solution architect and data engineer focusing on Data & AI solutions",
+        "url": "https://viktormaruna.com",
+        "sameAs": [
+            "https://www.linkedin.com/in/viktormaruna/",
+            "https://github.com/viktormaruna",
+            "https://dev.viktormaruna.com"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "Slovakia"
+        },
+        "image": "https://secure.gravatar.com/avatar/bb15a2e9748744487a135cb719c3126b",
+        "knowsAbout": ["Data Engineering", "Artificial Intelligence", "Cloud Computing", "Data Platforms", "Machine Learning"]
+    }
+    </script>
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #333;
+            background-color: #fafafa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            background: #fff;
+            padding: 3rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Header */
+        .header {
+            margin-bottom: 3rem;
+        }
+        
+        .name {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #000;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        
+        .focus {
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #888;
+            margin-bottom: 1rem;
+            text-transform: lowercase;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Links */
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .link-item {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+        
+        .link-item:hover {
+            color: #000;
+            background-color: #f8f9fa;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            color: #666;
+            font-size: 0.85rem;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background-color: #ddd;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-copyright {
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            color: #555;
+        }
+        
+        .footer-year {
+            color: #666;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .name {
+                font-size: 2.5rem;
+            }
+            
+            .links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .name {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
 
-		<link rel="shortcut icon" href="https://secure.gravatar.com/avatar/bb15a2e9748744487a135cb719c3126b" />
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="name">Viktor Maruna</h1>
+            <p class="tagline">Cloud Solution Architect & Data Engineer</p>
+            <p class="focus">Focusing on Data & AI</p>
+        </header>
+        
+        <section class="section">
+            <h2 class="section-title">contact</h2>
+        </section>
+                
+        <div class="links">
+            <a href="#" class="link-item" onclick="sendEmail(); return false;" aria-label="Send email to Viktor Maruna">Email</a>
+            <a href="https://www.linkedin.com/in/viktormaruna/" class="link-item" target="_blank" rel="noopener noreferrer" aria-label="Visit Viktor Maruna's LinkedIn profile">LinkedIn</a>
+            <a href="https://github.com/viktormaruna" class="link-item" target="_blank" rel="noopener noreferrer" aria-label="Visit Viktor Maruna's GitHub profile">GitHub</a>
+            <a href="https://signal.me/#eu/sEdMOWUKhdmkz1o4VId6bZczx2pdunRxrM9qbVA3rXtI3nF1LkVMkqh_SdE8XYp1" class="link-item" target="_blank" rel="noopener noreferrer" aria-label="Contact Viktor Maruna on Signal">Signal</a>
+        </div>
+        
+        <section class="section" style="margin-top: 4rem;">
+            <h2 class="section-title">links</h2>
+        </section>
 
-		<style type="text/css" media="screen">
-			@import url(stylesheet.css);
-		</style>
+        <div class="links">
+            <a href="https://dev.viktormaruna.com" class="link-item" target="_blank" rel="noopener noreferrer" aria-label="Visit Viktor Maruna's development blog">Dev Blog</a>
+        </div>
 
-	</head>
 
-	<body>
-		<div id="content">
-			<h1>Viktor Maruna</h1>
-			<h2>contact</h2>
-			<div id="contact">
-				<a href="mailto:&#x6d;&#x61;&#x69;&#x6c;&#x40;&#x76;&#x69;&#x6b;&#x74;&#x6f;&#x72;&#x6d;&#x61;&#x72;&#x75;&#x6e;&#x61;&#x2e;&#x63;&#x6f;&#x6d;">&#x6d;&#x61;&#x69;&#x6c;&#x40;&#x76;&#x69;&#x6b;&#x74;&#x6f;&#x72;&#x6d;&#x61;&#x72;&#x75;&#x6e;&#x61;&#x2e;&#x63;&#x6f;&#x6d;</a>
-			</div>
-						
-		</div>
-	</body>
-	
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-copyright">
+                    © <span class="footer-year">2025</span> Viktor Maruna
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        function sendEmail() {
+            // Obfuscated email address - decoded at runtime
+            const parts = ['mail', '@', 'viktor', 'maruna', '.', 'com'];
+            const email = parts[0] + parts[1] + parts[2] + parts[3] + parts[4] + parts[5];
+            window.location.href = 'mailto:' + email;
+        }
+    </script>
+</body>
 </html>

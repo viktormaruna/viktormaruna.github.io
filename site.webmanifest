@@ -1,0 +1,26 @@
+{
+    "name": "Viktor Maruna - Cloud Solution Architect",
+    "short_name": "Viktor Maruna",
+    "description": "Cloud solution architect, data engineer, and data platform administrator",
+    "icons": [
+        {
+            "src": "favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#667eea",
+    "background_color": "#fafafa",
+    "display": "standalone",
+    "start_url": "/"
+}
