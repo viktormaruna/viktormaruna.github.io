@@ -124,6 +124,22 @@
             margin-bottom: 1rem;
         }
         
+        /* Profile Photo */
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 1.5rem auto 0;
+            display: block;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-photo:hover {
+            border-color: #ddd;
+            transform: scale(1.02);
+        }
+        
         /* Sections */
         .section {
             margin-bottom: 1.5rem;
@@ -198,13 +214,18 @@
         }
         
         /* Responsive Design */
-        @media (max-width: 768px) {
+            @media (max-width: 768px) {
             body {
                 padding: 1rem;
             }
             
             .name {
                 font-size: 2.5rem;
+            }
+            
+            .profile-photo {
+                width: 100px;
+                height: 100px;
             }
             
             .links {
@@ -216,6 +237,11 @@
         @media (max-width: 480px) {
             .name {
                 font-size: 2rem;
+            }
+            
+            .profile-photo {
+                width: 80px;
+                height: 80px;
             }
             
             .section-title {
@@ -231,6 +257,7 @@
             <h1 class="name">Viktor Maruna</h1>
             <p class="tagline">Cloud Solution Architect & Data Engineer</p>
             <p class="focus">Focusing on Data & AI</p>
+            <img src="https://avatars.githubusercontent.com/u/571623?s=400&u=c29d2b1051d1181152040898681b8ba57521661b&v=4" alt="Viktor Maruna" class="profile-photo">
         </header>
         
         <section class="section">
