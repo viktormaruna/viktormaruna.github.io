@@ -39,10 +39,11 @@ This is a personal portfolio website hosted on GitHub Pages. It's a simple, stat
 - Use modern CSS with fallbacks for older browsers
 - Mobile-first responsive design
 - Use CSS custom properties (variables) when appropriate
-- Maintain consistency with existing design system:
-  - Font: System font stack (-apple-system, BlinkMacSystemFont, 'Segoe UI', etc.)
-  - Colors: #333 (text), #666 (secondary), #fafafa (background), #fff (cards)
+- Maintain consistency with existing design system (from index.html inline styles):
+  - Font: System font stack (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif)
+  - Colors: #333 (text), #666 (secondary text), #888 (labels), #fafafa (background), #fff (cards)
   - Spacing: rem-based units
+- Note: stylesheet.css uses older styles (Trebuchet MS, #8e8e8e) for legacy pages
 
 ### JavaScript
 
