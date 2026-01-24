@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zsigmond Pixel Art Screensaver</title>
+    <title>Pixel Art Screensaver</title>
     <style>
         * {
             margin: 0;
@@ -12,62 +12,20 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #000;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
             overflow: hidden;
         }
 
-        .container {
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
-        }
-
         #pixelCanvas {
-            border: 2px solid #333;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            display: block;
             image-rendering: pixelated;
             image-rendering: -moz-crisp-edges;
             image-rendering: crisp-edges;
         }
-
-        .info {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #888;
-            letter-spacing: 1px;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            #pixelCanvas {
-                max-width: 90vw;
-                max-height: 70vh;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Zsigmond Pixel Art Screensaver</h1>
-        <canvas id="pixelCanvas"></canvas>
-        <div class="info">Every pixel changes every second</div>
-    </div>
+    <canvas id="pixelCanvas"></canvas>
 
     <script>
         // Canvas setup
@@ -76,12 +34,8 @@
         
         // Pixel grid configuration
         const PIXEL_SIZE = 8; // Size of each "pixel" in actual pixels
-        const GRID_WIDTH = 80; // Number of pixels wide
-        const GRID_HEIGHT = 60; // Number of pixels tall
-        
-        // Set canvas size
-        canvas.width = GRID_WIDTH * PIXEL_SIZE;
-        canvas.height = GRID_HEIGHT * PIXEL_SIZE;
+        let GRID_WIDTH = 80; // Number of pixels wide
+        let GRID_HEIGHT = 60; // Number of pixels tall
         
         // Color palette for variety
         const colorPalette = [
@@ -96,6 +50,11 @@
         // Store pixel colors
         let pixels = [];
         
+        // Get random color from palette
+        function getRandomColor() {
+            return colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        }
+        
         // Initialize pixels with random colors
         function initializePixels() {
             pixels = [];
@@ -105,11 +64,6 @@
                     pixels[y][x] = getRandomColor();
                 }
             }
-        }
-        
-        // Get random color from palette
-        function getRandomColor() {
-            return colorPalette[Math.floor(Math.random() * colorPalette.length)];
         }
         
         // Draw all pixels on canvas
@@ -127,6 +81,20 @@
             }
         }
         
+        // Function to resize canvas to fullscreen
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            GRID_WIDTH = Math.floor(canvas.width / PIXEL_SIZE);
+            GRID_HEIGHT = Math.floor(canvas.height / PIXEL_SIZE);
+            initializePixels();
+            drawPixels();
+        }
+        
+        // Initialize on load and on resize
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
         // Change all pixel colors
         function changeAllPixels() {
             for (let y = 0; y < GRID_HEIGHT; y++) {
@@ -137,12 +105,121 @@
             drawPixels();
         }
         
-        // Initialize and start
-        initializePixels();
-        drawPixels();
+        // Create a reusable temporary canvas for text rendering
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
         
-        // Change every pixel every second
-        setInterval(changeAllPixels, 1000);
+        // Function to draw text as pixels
+        function drawPixelText(text, centerX, centerY, scale = 1) {
+            ctx.save();
+            
+            // Use a small font and get pixel data
+            const fontSize = 16 * scale;
+            ctx.font = `bold ${fontSize}px monospace`;
+            
+            // Measure text
+            const metrics = ctx.measureText(text);
+            const textWidth = metrics.width;
+            const textHeight = fontSize;
+            
+            // Resize temporary canvas
+            tempCanvas.width = textWidth + 10;
+            tempCanvas.height = textHeight + 10;
+            
+            // Draw text on temp canvas
+            tempCtx.font = ctx.font;
+            tempCtx.fillStyle = '#ffffff';
+            tempCtx.textBaseline = 'top';
+            tempCtx.fillText(text, 5, 5);
+            
+            // Get pixel data
+            const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+            const data = imageData.data;
+            
+            // Draw pixels where text exists
+            const startX = Math.floor(centerX - tempCanvas.width / 2);
+            const startY = Math.floor(centerY - tempCanvas.height / 2);
+            
+            for (let y = 0; y < tempCanvas.height; y++) {
+                for (let x = 0; x < tempCanvas.width; x++) {
+                    const i = (y * tempCanvas.width + x) * 4;
+                    const alpha = data[i + 3];
+                    
+                    if (alpha > 128) { // If pixel is visible
+                        const pixelX = startX + x;
+                        const pixelY = startY + y;
+                        
+                        if (pixelX >= 0 && pixelX < canvas.width && pixelY >= 0 && pixelY < canvas.height) {
+                            ctx.fillStyle = '#ffffff';
+                            ctx.fillRect(pixelX, pixelY, 1, 1);
+                        }
+                    }
+                }
+            }
+            
+            ctx.restore();
+        }
+        
+        // Function to format time and date
+        function getTimeString() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+        
+        function getDateString() {
+            const now = new Date();
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            const dayName = days[now.getDay()];
+            const monthName = months[now.getMonth()];
+            const date = now.getDate();
+            const year = now.getFullYear();
+            
+            return `${dayName}, ${monthName} ${date}, ${year}`;
+        }
+        
+        // Rotation state
+        let rotation = 0;
+        let lastRotationTime = Date.now();
+        const ROTATION_INTERVAL = 5000; // Rotate every 5 seconds
+        
+        // Update function to draw pixels and time/date
+        function update() {
+            // Change pixel colors
+            changeAllPixels();
+            
+            // Check if we should rotate
+            const currentTime = Date.now();
+            if (currentTime - lastRotationTime >= ROTATION_INTERVAL) {
+                rotation = (rotation + 90) % 360;
+                lastRotationTime = currentTime;
+            }
+            
+            // Draw time and date with rotation
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate((rotation * Math.PI) / 180);
+            
+            const timeText = getTimeString();
+            const dateText = getDateString();
+            
+            drawPixelText(timeText, 0, -30, 2);
+            drawPixelText(dateText, 0, 30, 1.2);
+            
+            ctx.restore();
+        }
+        
+        // Initialize and start
+        // Note: initialization happens in resizeCanvas()
+        
+        // Update every second
+        setInterval(update, 1000);
+        update(); // Initial call
     </script>
 </body>
 </html>
