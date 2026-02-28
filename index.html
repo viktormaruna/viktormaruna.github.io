@@ -4,25 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI Focus</title>
-    <meta name="description" content="Viktor Maruna is a cloud solution architect and data engineer based in Slovakia, focusing on Data & AI solutions. Connect with me through email, LinkedIn, GitHub, and Signal.">
-    <meta name="keywords" content="viktor maruna, viktormaruna, maruna, cloud solution architect, data engineer, cloud computing, data engineering, data and ai, artificial intelligence, machine learning, slovakia">
+    <title>Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI</title>
+    <meta name="description" content="Viktor Maruna is a Cloud Solution Architect & Data Engineer based in Slovakia, specializing in Data & AI solutions — including generative AI, LLMs, data platforms, and cloud architecture on Azure.">
+    <meta name="keywords" content="viktor maruna, viktormaruna, cloud solution architect, data engineer, data and ai, azure, generative ai, llm, large language models, data platform, data engineering, machine learning, ai architecture, slovakia, microsoft azure">
     <meta name="author" content="Viktor Maruna">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://viktormaruna.com">
-    <meta property="og:title" content="Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI Focus">
-    <meta property="og:description" content="Viktor Maruna is a cloud solution architect and data engineer based in Slovakia, focusing on Data & AI solutions. Connect with me through email, LinkedIn, GitHub, and Signal.">
-    <meta property="og:image" content="https://secure.gravatar.com/avatar/bb15a2e9748744487a135cb719c3126b">
+    <meta property="og:title" content="Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI">
+    <meta property="og:description" content="Viktor Maruna is a Cloud Solution Architect & Data Engineer based in Slovakia, specializing in Data & AI solutions — including generative AI, LLMs, data platforms, and cloud architecture on Azure.">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/571623?s=400">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary">
     <meta property="twitter:url" content="https://viktormaruna.com">
-    <meta property="twitter:title" content="Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI Focus">
-    <meta property="twitter:description" content="Viktor Maruna is a cloud solution architect and data engineer based in Slovakia, focusing on Data & AI solutions.">
-    <meta property="twitter:image" content="https://secure.gravatar.com/avatar/bb15a2e9748744487a135cb719c3126b">
+    <meta property="twitter:title" content="Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI">
+    <meta property="twitter:description" content="Viktor Maruna is a Cloud Solution Architect & Data Engineer based in Slovakia, specializing in Data & AI solutions — generative AI, LLMs, data platforms, and Azure cloud architecture.">
+    <meta property="twitter:image" content="https://avatars.githubusercontent.com/u/571623?s=400">
     
     <!-- Favicon and Icons -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -46,7 +46,7 @@
         "@type": "Person",
         "name": "Viktor Maruna",
         "jobTitle": "Cloud Solution Architect & Data Engineer",
-        "description": "Cloud solution architect and data engineer focusing on Data & AI solutions",
+        "description": "Cloud Solution Architect and Data Engineer based in Slovakia, specializing in Data & AI solutions including generative AI, large language models, data platforms, and cloud architecture on Azure.",
         "url": "https://viktormaruna.com",
         "sameAs": [
             "https://www.linkedin.com/in/viktormaruna/",
@@ -55,10 +55,28 @@
         ],
         "address": {
             "@type": "PostalAddress",
-            "addressCountry": "Slovakia"
+            "addressCountry": "SK",
+            "addressRegion": "Slovakia"
         },
-        "image": "https://secure.gravatar.com/avatar/bb15a2e9748744487a135cb719c3126b",
-        "knowsAbout": ["Data Engineering", "Artificial Intelligence", "Cloud Computing", "Data Platforms", "Machine Learning"]
+        "image": "https://avatars.githubusercontent.com/u/571623?s=400",
+        "email": "mail@viktormaruna.com",
+        "knowsAbout": [
+            "Data Engineering",
+            "Artificial Intelligence",
+            "Generative AI",
+            "Large Language Models",
+            "Cloud Computing",
+            "Microsoft Azure",
+            "Data Platforms",
+            "Machine Learning",
+            "Cloud Architecture",
+            "AI Solutions"
+        ],
+        "knowsLanguage": ["English", "Slovak"],
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://viktormaruna.com"
+        }
     }
     </script>
     
@@ -283,7 +301,7 @@
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-copyright">
-                    © <span class="footer-year">2025</span> Viktor Maruna
+                    © <span class="footer-year" id="footer-year">2026</span> Viktor Maruna
                 </div>
             </div>
         </footer>
@@ -296,6 +314,9 @@
             const email = parts[0] + parts[1] + parts[2] + parts[3] + parts[4] + parts[5];
             window.location.href = 'mailto:' + email;
         }
+
+        // Dynamic copyright year
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

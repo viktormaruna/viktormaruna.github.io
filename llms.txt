@@ -1,0 +1,25 @@
+# Viktor Maruna
+
+> Cloud Solution Architect & Data Engineer | Specializing in Data & AI
+
+Viktor Maruna is a Cloud Solution Architect and Data Engineer based in Slovakia, with deep expertise in designing and building Data & AI solutions. His work spans cloud architecture on Microsoft Azure, data platform engineering, generative AI, large language models (LLMs), and machine learning.
+
+## Expertise
+
+- **Cloud Architecture**: Microsoft Azure, cloud-native solutions, scalable infrastructure
+- **Data Engineering**: Data pipelines, data platforms, ETL/ELT, data lakes, lakehouses
+- **AI & Machine Learning**: Generative AI, large language models (LLMs), ML solutions, AI-powered applications
+- **Data & AI Strategy**: Enterprise data & AI architecture, solution design, technical advisory
+
+## Contact
+
+- Email: mail@viktormaruna.com
+- LinkedIn: https://www.linkedin.com/in/viktormaruna/
+- GitHub: https://github.com/viktormaruna
+- Dev Blog: https://dev.viktormaruna.com
+- Signal: https://signal.me/#eu/sEdMOWUKhdmkz1o4VId6bZczx2pdunRxrM9qbVA3rXtI3nF1LkVMkqh_SdE8XYp1
+
+## Links
+
+- Personal website: https://viktormaruna.com
+- Dev Blog: https://dev.viktormaruna.com
