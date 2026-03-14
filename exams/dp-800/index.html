@@ -653,7 +653,7 @@
                 <span class="hero-badge">🏆 Associate Level</span>
                 <span class="hero-badge">⏱ ~2-3 hours prep</span>
                 <span class="hero-badge">📅 Beta Exam 2026</span>
-                <span class="hero-badge">💡 Covers all 5 skill areas</span>
+                <span class="hero-badge">💡 Covers all 6 skill areas</span>
             </div>
         </div>
 
@@ -1301,6 +1301,10 @@ WHERE r.CreatedAt > DATEADD(day, -7, SYSUTCDATETIME());
                 For more control over the HTTP request (custom headers, retry logic), use
                 <code>sp_invoke_external_rest_endpoint</code>:
             </p>
+            <div class="callout callout-warn">
+                <div class="callout-title">⚠️ Production Security</div>
+                <p>The example below uses a placeholder API key for illustration. In production, always authenticate via <strong>Azure Managed Identity</strong> (see Section 5.1). Also verify the latest Azure OpenAI API version at <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/reference" target="_blank" rel="noopener noreferrer">aka.ms/oai/docs</a>.</p>
+            </div>
             <pre><code class="language-sql">DECLARE @payload NVARCHAR(MAX) = JSON_OBJECT(
     'model'      : 'gpt-4o',
     'messages'   : JSON_ARRAY(
@@ -1315,9 +1319,9 @@ WHERE r.CreatedAt > DATEADD(day, -7, SYSUTCDATETIME());
 
 DECLARE @response NVARCHAR(MAX);
 EXEC sp_invoke_external_rest_endpoint
-    @url     = N'https://YOUR_RESOURCE.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-01',
+    @url     = N'https://YOUR_RESOURCE.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-01',  -- verify latest API version at aka.ms/oai/docs
     @method  = 'POST',
-    @headers = '{"Content-Type":"application/json","api-key":"YOUR_API_KEY"}',
+    @headers = '{"Content-Type":"application/json","api-key":"YOUR_API_KEY"}',  -- In production use Managed Identity; never hardcode keys
     @payload = @payload,
     @response = @response OUTPUT;
 
