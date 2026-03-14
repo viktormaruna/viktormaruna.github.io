@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DP-800 Study Guide: Developing AI-Enabled Database Solutions | Viktor Maruna</title>
+    <meta name="description" content="Comprehensive DP-800 exam study guide covering vector embeddings, RAG workflows, T-SQL AI functions, Azure OpenAI integration, and more.">
+    <meta name="author" content="Viktor Maruna">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+    <link rel="canonical" href="https://viktormaruna.com/exams/dp-800/">
+
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+
+    <style>
+        /* ===================== RESET & BASE ===================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #222;
+            background: #f5f5f5;
+            line-height: 1.7;
+        }
+
+        /* ===================== LAYOUT ===================== */
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===================== SIDEBAR ===================== */
+        .sidebar {
+            width: 280px;
+            min-width: 280px;
+            background: #fff;
+            border-right: 1px solid #e8e8e8;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+        .sidebar-header {
+            padding: 1.5rem 1.25rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .sidebar-back {
+            font-size: 0.8rem;
+            color: #888;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-bottom: 0.75rem;
+        }
+        .sidebar-back:hover { color: #333; }
+        .sidebar-exam-code {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0078d4;
+            letter-spacing: -0.01em;
+        }
+        .sidebar-exam-title {
+            font-size: 0.78rem;
+            color: #666;
+            line-height: 1.4;
+            margin-top: 0.1rem;
+        }
+
+        /* Progress bar */
+        .progress-wrap {
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 0.4rem;
+        }
+        .progress-bar-bg {
+            background: #f0f0f0;
+            border-radius: 20px;
+            height: 6px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #0078d4, #00bcf2);
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        /* Nav */
+        .sidebar-nav { flex: 1; padding: 0.75rem 0; }
+        .nav-section-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #bbb;
+            padding: 0.75rem 1.25rem 0.25rem;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.55rem 1.25rem;
+            font-size: 0.85rem;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+        .nav-item:hover { background: #f8f8f8; color: #000; }
+        .nav-item.active {
+            background: #e8f4fd;
+            color: #0078d4;
+            font-weight: 500;
+        }
+        .nav-item .nav-icon { width: 1.1rem; text-align: center; flex-shrink: 0; }
+        .nav-item .nav-check {
+            margin-left: auto;
+            color: #52c41a;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .nav-item.read .nav-check { opacity: 1; }
+
+        /* ===================== MAIN CONTENT ===================== */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 2.5rem 3rem;
+            max-width: 900px;
+        }
+
+        /* Page header */
+        .page-hero {
+            background: linear-gradient(135deg, #0078d4 0%, #00bcf2 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .page-hero .breadcrumb {
+            font-size: 0.8rem;
+            opacity: 0.75;
+            margin-bottom: 0.75rem;
+        }
+        .page-hero .breadcrumb a { color: #fff; text-decoration: none; }
+        .page-hero h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .page-hero .exam-subtitle {
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 1.25rem;
+        }
+        .hero-badges { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .hero-badge {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Section */
+        .study-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            scroll-margin-top: 1.5rem;
+        }
+        .section-number {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #0078d4;
+            margin-bottom: 0.5rem;
+        }
+        .study-section h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.01em;
+        }
+        .section-desc {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1.75rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #222;
+            margin: 1.75rem 0 0.6rem;
+        }
+        h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #444;
+            margin: 1.25rem 0 0.4rem;
+        }
+        p { margin-bottom: 0.85rem; color: #444; font-size: 0.95rem; }
+        ul, ol { padding-left: 1.5rem; margin-bottom: 0.85rem; }
+        li { color: #444; font-size: 0.95rem; margin-bottom: 0.3rem; }
+        strong { color: #222; }
+
+        /* Code blocks */
+        pre[class*="language-"] {
+            border-radius: 8px;
+            margin: 1rem 0 1.25rem;
+            font-size: 0.82rem !important;
+        }
+        code:not([class*="language-"]) {
+            background: #f0f0f0;
+            color: #d63384;
+            padding: 0.1em 0.4em;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        /* Callout boxes */
+        .callout {
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            border-left: 4px solid;
+        }
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .callout p { margin-bottom: 0; }
+        .callout-tip { background: #f0fdf4; border-color: #22c55e; color: #166534; }
+        .callout-tip .callout-title { color: #16a34a; }
+        .callout-warn { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+        .callout-warn .callout-title { color: #d97706; }
+        .callout-info { background: #eff6ff; border-color: #3b82f6; color: #1e3a5f; }
+        .callout-info .callout-title { color: #2563eb; }
+        .callout-exam { background: #fdf2f8; border-color: #a855f7; color: #4a1472; }
+        .callout-exam .callout-title { color: #9333ea; }
+
+        /* Key term cards */
+        .key-terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .key-term-card {
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .key-term-card .term { font-weight: 700; font-size: 0.9rem; color: #0078d4; margin-bottom: 0.3rem; }
+        .key-term-card .definition { font-size: 0.83rem; color: #555; line-height: 1.5; }
+
+        /* Comparison table */
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.88rem;
+        }
+        .compare-table th {
+            background: #f8f9fa;
+            padding: 0.65rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .compare-table td {
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            color: #444;
+        }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table tr:hover td { background: #f9f9f9; }
+        .check { color: #22c55e; font-weight: bold; }
+        .cross { color: #ef4444; }
+
+        /* Steps */
+        .steps { counter-reset: step-counter; list-style: none; padding: 0; margin: 1rem 0; }
+        .steps li {
+            counter-increment: step-counter;
+            padding: 0.75rem 0 0.75rem 3.5rem;
+            position: relative;
+            border-left: 2px solid #e8e8e8;
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -1.25rem;
+            top: 0.7rem;
+            background: #0078d4;
+            color: #fff;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* ===================== FLASHCARDS ===================== */
+        #quiz { scroll-margin-top: 1.5rem; }
+        .quiz-controls {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+        .quiz-btn {
+            padding: 0.6rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .quiz-btn-primary { background: #0078d4; color: #fff; }
+        .quiz-btn-primary:hover { background: #005a9e; }
+        .quiz-btn-secondary { background: #f0f0f0; color: #333; }
+        .quiz-btn-secondary:hover { background: #e0e0e0; }
+        .quiz-filter {
+            padding: 0.55rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            background: #fff;
+            color: #333;
+        }
+        .quiz-score {
+            margin-left: auto;
+            font-size: 0.88rem;
+            color: #666;
+            background: #f8f8f8;
+            padding: 0.4rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .flashcard-container {
+            perspective: 1000px;
+            margin-bottom: 1rem;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .flashcard.flipped { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            min-height: 200px;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #0078d4, #106ebe);
+            color: #fff;
+        }
+        .flashcard-back {
+            background: #fff;
+            border: 2px solid #0078d4;
+            transform: rotateY(180deg);
+            color: #222;
+        }
+        .flashcard-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+        .flashcard-front .flashcard-label { color: rgba(255,255,255,0.8); }
+        .flashcard-back .flashcard-label { color: #0078d4; }
+        .flashcard-question {
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .flashcard-answer {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #444;
+        }
+        .flashcard-answer code {
+            background: #f0f0f0;
+            padding: 0.1em 0.4em;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+        .flashcard-hint {
+            font-size: 0.78rem;
+            opacity: 0.6;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .flashcard-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        .fc-nav-btn {
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            color: #333;
+            transition: background 0.2s;
+        }
+        .fc-nav-btn:hover { background: #e0e0e0; }
+        .fc-nav-btn:disabled { opacity: 0.35; cursor: default; }
+        .fc-counter { font-size: 0.85rem; color: #888; }
+
+        .rating-btns {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-top: 1.25rem;
+        }
+        .rating-btn {
+            padding: 0.5rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .rating-know { background: #dcfce7; color: #166534; }
+        .rating-know:hover { background: #bbf7d0; }
+        .rating-review { background: #fef3c7; color: #92400e; }
+        .rating-review:hover { background: #fde68a; }
+
+        /* ===================== TOOLBAR (mobile) ===================== */
+        .mobile-toolbar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #e8e8e8;
+            padding: 0.75rem 1rem;
+            z-index: 200;
+            gap: 0.5rem;
+        }
+        .mobile-toolbar button {
+            flex: 1;
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            font-size: 0.82rem;
+            cursor: pointer;
+            color: #333;
+        }
+        .mobile-toolbar .btn-menu-open { background: #0078d4; color: #fff; border-color: #0078d4; }
+
+        /* Sidebar overlay (mobile) */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 99;
+        }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 900px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                transition: left 0.3s ease;
+            }
+            .sidebar.open { left: 0; }
+            .sidebar-overlay.visible { display: block; }
+            .main-content { padding: 1.5rem 1.25rem 5rem; }
+            .mobile-toolbar { display: flex; }
+            .page-hero { padding: 1.75rem; }
+            .page-hero h1 { font-size: 1.6rem; }
+            .study-section { padding: 1.75rem; }
+        }
+        @media (max-width: 600px) {
+            .key-terms-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===================== SEARCH ===================== */
+        .search-wrap {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .search-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: #0078d4; }
+
+        /* Read marker */
+        .mark-read-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #888;
+            background: none;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 0.3rem 0.75rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all 0.2s;
+        }
+        .mark-read-btn:hover { border-color: #22c55e; color: #16a34a; }
+        .mark-read-btn.marked { background: #f0fdf4; border-color: #22c55e; color: #16a34a; }
+    </style>
+</head>
+<body>
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../" class="sidebar-back">← All Exams</a>
+            <div class="sidebar-exam-code">DP-800</div>
+            <div class="sidebar-exam-title">Developing AI-Enabled Database Solutions</div>
+        </div>
+        <div class="search-wrap">
+            <input type="search" class="search-input" id="searchInput" placeholder="🔍 Search topics…" aria-label="Search topics">
+        </div>
+        <div class="progress-wrap">
+            <div class="progress-label">
+                <span>Progress</span>
+                <span id="progressText">0 / 7 read</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav">
+            <div class="nav-section-label">Overview</div>
+            <a href="#overview" class="nav-item active" data-section="overview">
+                <span class="nav-icon">🏠</span> Exam Overview
+                <span class="nav-check">✓</span>
+            </a>
+
+            <div class="nav-section-label">Skill Areas</div>
+            <a href="#skill1" class="nav-item" data-section="skill1">
+                <span class="nav-icon">🗄️</span> 1. AI-Ready DB Design
+                <span class="nav-check">✓</span>
+            </a>
+            <a href="#skill2" class="nav-item" data-section="skill2">
+                <span class="nav-icon">🔢</span> 2. Vectors & Embeddings
+                <span class="nav-check">✓</span>
+            </a>
+            <a href="#skill3" class="nav-item" data-section="skill3">
+                <span class="nav-icon">🤖</span> 3. RAG Workflows
+                <span class="nav-check">✓</span>
+            </a>
+            <a href="#skill4" class="nav-item" data-section="skill4">
+                <span class="nav-icon">⚡</span> 4. T-SQL AI Functions
+                <span class="nav-check">✓</span>
+            </a>
+            <a href="#skill5" class="nav-item" data-section="skill5">
+                <span class="nav-icon">🔒</span> 5. Security & DevOps
+                <span class="nav-check">✓</span>
+            </a>
+            <a href="#skill6" class="nav-item" data-section="skill6">
+                <span class="nav-icon">🌐</span> 6. Data API Builder
+                <span class="nav-check">✓</span>
+            </a>
+
+            <div class="nav-section-label">Practice</div>
+            <a href="#quiz" class="nav-item" data-section="quiz">
+                <span class="nav-icon">🃏</span> Flashcard Quiz
+                <span class="nav-check">✓</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- SIDEBAR OVERLAY (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="mainContent">
+
+        <!-- HERO -->
+        <div class="page-hero">
+            <div class="breadcrumb">
+                <a href="/">viktormaruna.com</a> / <a href="../">exams</a> / DP-800
+            </div>
+            <h1>DP-800 Study Guide</h1>
+            <p class="exam-subtitle">Developing AI-Enabled Database Solutions</p>
+            <div class="hero-badges">
+                <span class="hero-badge">🏆 Associate Level</span>
+                <span class="hero-badge">⏱ ~2-3 hours prep</span>
+                <span class="hero-badge">📅 Beta Exam 2026</span>
+                <span class="hero-badge">💡 Covers all 6 skill areas</span>
+            </div>
+        </div>
+
+        <!-- ======================================================
+             SECTION 0: OVERVIEW
+             ====================================================== -->
+        <section class="study-section" id="overview">
+            <div class="section-number">Overview</div>
+            <h2>Exam DP-800 at a Glance</h2>
+            <p class="section-desc">Understand what this certification is, who it's for, and how the exam is structured before diving into content.</p>
+
+            <h3>What is DP-800?</h3>
+            <p>
+                <strong>Exam DP-800</strong> — <em>Developing AI-Enabled Database Solutions</em> — is a Microsoft Associate-level certification exam
+                that validates expertise in integrating AI directly within SQL-based data solutions across the Microsoft SQL platform family:
+                <strong>Azure SQL Database</strong>, <strong>SQL Server 2025</strong>, and <strong>SQL in Microsoft Fabric</strong>.
+            </p>
+            <p>
+                The exam focuses on the new generation of SQL AI capabilities — native vector types, in-database embedding generation,
+                semantic search, and retrieval-augmented generation (RAG) — all executed using T-SQL without migrating data to a separate vector database.
+            </p>
+
+            <h3>Target Audience</h3>
+            <ul>
+                <li>Database developers integrating AI into SQL-based applications</li>
+                <li>Data engineers building AI-augmented pipelines on Azure SQL or Microsoft Fabric</li>
+                <li>Solution architects designing secure, scalable AI-enabled database solutions</li>
+                <li>Professionals experienced with T-SQL, GitHub-based CI/CD, and foundational AI/ML concepts</li>
+            </ul>
+
+            <h3>Exam Structure</h3>
+            <div style="overflow-x:auto">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Skill Area</th>
+                        <th>Topics</th>
+                        <th>Approx. Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1. AI-Ready Database Design</td><td>Schema design, T-SQL for AI, data types</td><td>~20%</td></tr>
+                    <tr><td>2. Vectors & Embeddings</td><td>VECTOR type, DiskANN index, VECTOR_DISTANCE</td><td>~25%</td></tr>
+                    <tr><td>3. RAG Workflows</td><td>Retrieval-Augmented Generation, LLM grounding</td><td>~20%</td></tr>
+                    <tr><td>4. T-SQL AI Functions</td><td>AI_GENERATE_EMBEDDINGS, external models, OpenAI</td><td>~20%</td></tr>
+                    <tr><td>5. Security, Scaling & DevOps</td><td>Encryption, RBAC, CI/CD, Data API Builder</td><td>~15%</td></tr>
+                </tbody>
+            </table>
+            </div>
+
+            <h3>Recommended Prerequisites</h3>
+            <ul>
+                <li>Solid T-SQL knowledge (queries, stored procedures, indexes, performance tuning)</li>
+                <li>Familiarity with Azure SQL Database or SQL Server</li>
+                <li>Basic understanding of AI/ML concepts: embeddings, vectors, LLMs</li>
+                <li>Experience with GitHub and CI/CD pipelines</li>
+                <li>Knowledge of database security best practices</li>
+            </ul>
+
+            <div class="callout callout-exam">
+                <div class="callout-title">📋 Exam Tips</div>
+                <p>The exam includes scenario-based questions requiring you to choose the most appropriate T-SQL approach for AI tasks. Focus on understanding <em>when</em> and <em>why</em> to use each feature, not just syntax. Practice with the Microsoft Learn labs before sitting the exam.</p>
+            </div>
+
+            <button class="mark-read-btn" data-section="overview">✓ Mark as read</button>
+        </section>
+
+        <!-- ======================================================
+             SECTION 1: AI-READY DB DESIGN
+             ====================================================== -->
+        <section class="study-section" id="skill1">
+            <div class="section-number">Skill Area 1</div>
+            <h2>Designing and Developing AI-Ready Database Solutions</h2>
+            <p class="section-desc">Learn how to design schemas, choose appropriate data types, and write advanced T-SQL that efficiently supports AI workloads.</p>
+
+            <h3>1.1 Schema Design for AI Workloads</h3>
+            <p>
+                AI-ready schemas differ from traditional schemas: they must efficiently store high-dimensional vector data, support partial-text search,
+                and handle semi-structured (JSON) responses from LLMs.
+            </p>
+
+            <h4>Key Design Principles</h4>
+            <ul>
+                <li><strong>Store embeddings close to source data</strong> — add a <code>VECTOR</code> column to the same table as the text being represented, avoiding expensive joins at query time.</li>
+                <li><strong>Use JSON columns for LLM metadata</strong> — store prompt/response logs, token counts, and model metadata as <code>NVARCHAR(MAX)</code> with JSON validation.</li>
+                <li><strong>Chunk large documents</strong> — split long text into overlapping chunks (e.g., 512 tokens) and store each chunk as a separate row with its embedding and a reference to the parent document ID.</li>
+                <li><strong>Choose appropriate vector dimensions</strong> — match dimension to your embedding model (e.g., 1536 for OpenAI <code>text-embedding-ada-002</code>, 3072 for <code>text-embedding-3-large</code>).</li>
+            </ul>
+
+            <h4>Example: AI-Ready Document Table</h4>
+            <pre><code class="language-sql">-- Store document chunks with their embeddings
+CREATE TABLE dbo.DocumentChunks (
+    ChunkId       INT IDENTITY PRIMARY KEY,
+    DocumentId    INT NOT NULL,
+    ChunkIndex    INT NOT NULL,          -- order within the document
+    ChunkText     NVARCHAR(MAX) NOT NULL,
+    TokenCount    INT NOT NULL,
+    Embedding     VECTOR(1536),          -- OpenAI ada-002 dimension
+    CreatedAt     DATETIME2 DEFAULT SYSUTCDATETIME(),
+    CONSTRAINT fk_doc FOREIGN KEY (DocumentId)
+        REFERENCES dbo.Documents(DocumentId)
+);
+
+-- Index for fast retrieval by document
+CREATE INDEX ix_chunk_doc ON dbo.DocumentChunks (DocumentId, ChunkIndex);
+</code></pre>
+
+            <h4>Chunking Strategy</h4>
+            <p>Chunk size affects retrieval quality. Common strategies:</p>
+            <div class="key-terms-grid">
+                <div class="key-term-card">
+                    <div class="term">Fixed-size chunking</div>
+                    <div class="definition">Split text into equal-length segments (e.g., 512 tokens). Simple but may split sentences.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Sentence-level chunking</div>
+                    <div class="definition">Split at sentence boundaries. Better semantic coherence but variable sizes.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Overlapping chunking</div>
+                    <div class="definition">Add 10-20% overlap between chunks to avoid missing context at boundaries.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Hierarchical chunking</div>
+                    <div class="definition">Store both coarse (paragraph) and fine (sentence) chunks for multi-level retrieval.</div>
+                </div>
+            </div>
+
+            <h3>1.2 Semi-Structured Data and JSON in T-SQL</h3>
+            <p>
+                AI applications frequently receive JSON from LLM APIs. SQL Server provides first-class JSON support for parsing, querying, and storing JSON data.
+            </p>
+
+            <pre><code class="language-sql">-- Store LLM interaction logs as JSON
+CREATE TABLE dbo.LLMInteractions (
+    InteractionId UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+    SessionId     NVARCHAR(128) NOT NULL,
+    RequestPayload  NVARCHAR(MAX),
+    ResponsePayload NVARCHAR(MAX),
+    ModelName     NVARCHAR(128),
+    TokensUsed    INT,
+    DurationMs    INT,
+    CreatedAt     DATETIME2 DEFAULT SYSUTCDATETIME(),
+    CONSTRAINT chk_request_json  CHECK (ISJSON(RequestPayload) = 1),
+    CONSTRAINT chk_response_json CHECK (ISJSON(ResponsePayload) = 1)
+);
+
+-- Query JSON fields with JSON_VALUE and JSON_QUERY
+SELECT
+    InteractionId,
+    JSON_VALUE(ResponsePayload, '$.choices[0].message.content') AS Answer,
+    JSON_VALUE(ResponsePayload, '$.usage.total_tokens') AS TotalTokens
+FROM dbo.LLMInteractions
+WHERE ModelName = 'gpt-4o';
+
+-- Aggregate with OPENJSON for multi-value arrays
+SELECT msg.role, msg.content
+FROM dbo.LLMInteractions
+CROSS APPLY OPENJSON(RequestPayload, '$.messages')
+    WITH (role NVARCHAR(50) '$.role', content NVARCHAR(MAX) '$.content') AS msg
+WHERE InteractionId = '...';
+</code></pre>
+
+            <h3>1.3 Advanced T-SQL Techniques for AI Workloads</h3>
+
+            <h4>Batch Processing with MERGE</h4>
+            <p>When generating embeddings in bulk, use <code>MERGE</code> to insert new chunks and update changed ones atomically:</p>
+            <pre><code class="language-sql">MERGE dbo.DocumentChunks AS target
+USING @stagingChunks AS source
+    ON target.DocumentId = source.DocumentId
+    AND target.ChunkIndex = source.ChunkIndex
+WHEN MATCHED AND target.ChunkText != source.ChunkText THEN
+    UPDATE SET
+        ChunkText = source.ChunkText,
+        Embedding = NULL,          -- mark for re-embedding
+        CreatedAt = SYSUTCDATETIME()
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT (DocumentId, ChunkIndex, ChunkText, TokenCount)
+    VALUES (source.DocumentId, source.ChunkIndex, source.ChunkText, source.TokenCount);
+</code></pre>
+
+            <h4>Filtered Indexes for Unembedded Rows</h4>
+            <pre><code class="language-sql">-- Efficiently find rows that still need embedding
+CREATE INDEX ix_needs_embedding
+    ON dbo.DocumentChunks (ChunkId)
+    WHERE Embedding IS NULL;
+</code></pre>
+
+            <div class="callout callout-tip">
+                <div class="callout-title">💡 Performance Tip</div>
+                <p>Use filtered indexes on <code>WHERE Embedding IS NULL</code> to efficiently find rows that need embedding. This avoids full table scans during batch embedding pipelines.</p>
+            </div>
+
+            <button class="mark-read-btn" data-section="skill1">✓ Mark as read</button>
+        </section>
+
+        <!-- ======================================================
+             SECTION 2: VECTORS & EMBEDDINGS
+             ====================================================== -->
+        <section class="study-section" id="skill2">
+            <div class="section-number">Skill Area 2</div>
+            <h2>Vector Data and Embeddings in SQL</h2>
+            <p class="section-desc">Master the VECTOR data type, vector indexing with DiskANN, and semantic similarity search — all natively within SQL Server 2025 and Azure SQL.</p>
+
+            <h3>2.1 The VECTOR Data Type</h3>
+            <p>
+                SQL Server 2025 and Azure SQL introduce the <code>VECTOR</code> native data type, enabling storage of high-dimensional floating-point arrays
+                (embeddings) as a first-class database column. Internally stored as compact binary, it presents as a JSON array for input/output.
+            </p>
+
+            <h4>Syntax</h4>
+            <pre><code class="language-sql">-- Declare a vector column: VECTOR(dimensions [, precision])
+-- Default precision is float32; float16 available in preview
+embedding VECTOR(1536)           -- float32 (default)
+embedding VECTOR(1536, float16)  -- half-precision (more compact)
+
+-- Supported dimension range: 1 – 1998
+</code></pre>
+
+            <h4>Creating Tables with Vectors</h4>
+            <pre><code class="language-sql">CREATE TABLE dbo.Products (
+    ProductId   INT IDENTITY PRIMARY KEY,
+    Name        NVARCHAR(255) NOT NULL,
+    Description NVARCHAR(MAX),
+    Category    NVARCHAR(100),
+    Embedding   VECTOR(1536)     -- text-embedding-ada-002
+);
+</code></pre>
+
+            <h4>Inserting Vector Data</h4>
+            <p>Vectors are inserted as JSON arrays (the database converts them internally):</p>
+            <pre><code class="language-sql">-- Direct insert from JSON array
+INSERT INTO dbo.Products (Name, Description, Embedding)
+VALUES (
+    'Surface Pro 11',
+    'A lightweight 2-in-1 laptop for professionals.',
+    '[0.0234, -0.1127, 0.0891, ...]'   -- 1536 float values as JSON array
+);
+
+-- From a stored procedure that calls Azure OpenAI
+DECLARE @emb VECTOR(1536);
+EXEC dbo.GetEmbedding @text = N'Surface Pro 11 laptop', @embedding = @emb OUTPUT;
+
+UPDATE dbo.Products
+SET Embedding = @emb
+WHERE ProductId = 1;
+</code></pre>
+
+            <h3>2.2 Vector Distance Functions</h3>
+            <p>SQL Server 2025 provides <code>VECTOR_DISTANCE()</code> to compute similarity between two vectors:</p>
+
+            <div style="overflow-x:auto">
+            <table class="compare-table">
+                <thead>
+                    <tr><th>Metric</th><th>Syntax</th><th>Range</th><th>Use Case</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Cosine</strong></td>
+                        <td><code>'cosine'</code></td>
+                        <td>0 (identical) – 2 (opposite)</td>
+                        <td>Best for NLP / text similarity. Ignores magnitude.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Euclidean</strong></td>
+                        <td><code>'euclidean'</code></td>
+                        <td>0 – ∞</td>
+                        <td>Geometric distance. Good when magnitude matters.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dot Product</strong></td>
+                        <td><code>'dot'</code></td>
+                        <td>-∞ – ∞ (higher = more similar)</td>
+                        <td>Fast; useful when vectors are L2-normalized.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Negative Dot</strong></td>
+                        <td><code>'neg_dot'</code></td>
+                        <td>-∞ – ∞</td>
+                        <td>Inverted for ORDER BY (lower = more similar).</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <pre><code class="language-sql">-- Semantic similarity search: top-5 most similar products
+DECLARE @queryEmb VECTOR(1536);
+EXEC dbo.GetEmbedding @text = N'portable ultrabook for developers', @embedding = @queryEmb OUTPUT;
+
+SELECT TOP (5)
+    ProductId,
+    Name,
+    VECTOR_DISTANCE('cosine', Embedding, @queryEmb) AS Distance
+FROM dbo.Products
+WHERE Embedding IS NOT NULL
+ORDER BY Distance ASC;   -- lower cosine distance = more similar
+</code></pre>
+
+            <div class="callout callout-info">
+                <div class="callout-title">ℹ️ Cosine vs. Dot Product</div>
+                <p>When your embeddings are L2-normalized (unit length), cosine distance and dot product similarity are mathematically equivalent. Azure OpenAI embedding models return normalized vectors by default, so dot product search is slightly faster.</p>
+            </div>
+
+            <h3>2.3 Vector Indexes (DiskANN)</h3>
+            <p>
+                Without an index, similarity search requires computing distance to <em>every</em> row — an O(n) brute-force scan.
+                SQL Server 2025 introduces <strong>DiskANN</strong> (Disk-based Approximate Nearest Neighbor) indexes that provide sub-linear search time at the cost of approximate (not exact) results.
+            </p>
+
+            <h4>Creating a Vector Index</h4>
+            <pre><code class="language-sql">-- Create a DiskANN vector index for cosine similarity
+CREATE VECTOR INDEX vix_products_embedding
+    ON dbo.Products (Embedding)
+    WITH (
+        METRIC = 'cosine',          -- distance metric to optimize for
+        TYPE = 'DiskANN'            -- only supported type currently
+    );
+</code></pre>
+
+            <h4>Using VECTOR_SEARCH for Index-Accelerated Search</h4>
+            <pre><code class="language-sql">-- Using the VECTOR_SEARCH function (leverages the DiskANN index)
+DECLARE @queryEmb VECTOR(1536);
+EXEC dbo.GetEmbedding @text = N'portable laptop for travel', @embedding = @queryEmb OUTPUT;
+
+SELECT p.ProductId, p.Name, vs.Distance
+FROM VECTOR_SEARCH(
+    TABLE dbo.Products AS p,
+    COLUMN Embedding,
+    SIMILAR_TO @queryEmb,
+    METRIC 'cosine',
+    TOP 10
+) AS vs
+JOIN dbo.Products p ON p.ProductId = vs.ProductId
+ORDER BY vs.Distance;
+</code></pre>
+
+            <div class="callout callout-warn">
+                <div class="callout-title">⚠️ ANN vs. Exact Search</div>
+                <p>DiskANN produces <strong>approximate nearest neighbors</strong>. For most RAG and recommendation use cases this is acceptable. For applications requiring exact results (e.g., duplicate detection), use brute-force <code>VECTOR_DISTANCE()</code> without the index.</p>
+            </div>
+
+            <h4>DiskANN Index Parameters</h4>
+            <div class="key-terms-grid">
+                <div class="key-term-card">
+                    <div class="term">METRIC</div>
+                    <div class="definition">Distance metric: <code>cosine</code>, <code>euclidean</code>, or <code>dot</code>. Must match your search queries.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">TYPE</div>
+                    <div class="definition">Currently only <code>DiskANN</code> is supported. Graph-based ANN algorithm from Microsoft Research.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Build time</div>
+                    <div class="definition">Index builds asynchronously. Monitor with <code>sys.dm_db_index_physical_stats</code>.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Recall trade-off</div>
+                    <div class="definition">DiskANN balances recall (~95-99%) vs speed. No tunable recall parameter in T-SQL currently.</div>
+                </div>
+            </div>
+
+            <h3>2.4 Vector Operations and Utility Functions</h3>
+            <pre><code class="language-sql">-- VECTOR_NORM: compute the L2 norm of a vector
+SELECT VECTOR_NORM(Embedding, 'norm2') AS EuclideanNorm
+FROM dbo.Products WHERE ProductId = 1;
+
+-- VECTOR_NORMALIZE: return unit-length vector
+SELECT VECTOR_NORMALIZE(Embedding) AS NormalizedEmb
+FROM dbo.Products WHERE ProductId = 1;
+
+-- VECTOR_DIMENSIONS: get the dimension count
+SELECT VECTOR_DIMENSIONS(Embedding) AS Dims FROM dbo.Products WHERE ProductId = 1;
+
+-- Cast between float32 and float16
+SELECT CAST(Embedding AS VECTOR(1536, float16)) AS CompactEmb
+FROM dbo.Products WHERE ProductId = 1;
+</code></pre>
+
+            <button class="mark-read-btn" data-section="skill2">✓ Mark as read</button>
+        </section>
+
+        <!-- ======================================================
+             SECTION 3: RAG WORKFLOWS
+             ====================================================== -->
+        <section class="study-section" id="skill3">
+            <div class="section-number">Skill Area 3</div>
+            <h2>Implementing RAG Workflows</h2>
+            <p class="section-desc">Build Retrieval-Augmented Generation pipelines that ground LLM outputs with your SQL data, reducing hallucinations and enabling domain-specific AI applications.</p>
+
+            <h3>3.1 What is RAG?</h3>
+            <p>
+                <strong>Retrieval-Augmented Generation (RAG)</strong> is an architectural pattern that enhances LLM responses by
+                fetching relevant context from an external data source before generating an answer.
+                Instead of relying solely on the model's pre-trained knowledge, RAG supplies the LLM with up-to-date,
+                domain-specific data retrieved from your database.
+            </p>
+
+            <div class="key-terms-grid">
+                <div class="key-term-card">
+                    <div class="term">Grounding</div>
+                    <div class="definition">Providing factual, retrieved data as context so the LLM generates accurate, verifiable answers.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Hallucination</div>
+                    <div class="definition">When an LLM generates confident but incorrect information. RAG reduces this by anchoring answers in real data.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Retriever</div>
+                    <div class="definition">The component (SQL vector search) that finds relevant chunks given a user query.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Generator</div>
+                    <div class="definition">The LLM (e.g., GPT-4o) that synthesizes retrieved context into a natural language answer.</div>
+                </div>
+            </div>
+
+            <h3>3.2 RAG Architecture in Azure SQL</h3>
+            <p>The typical Azure SQL RAG pipeline consists of two phases:</p>
+
+            <h4>Phase 1: Indexing (Offline)</h4>
+            <ol class="steps">
+                <li>Load source documents (PDFs, articles, product descriptions) into <code>dbo.Documents</code>.</li>
+                <li>Chunk documents into manageable segments (512–1024 tokens with overlap).</li>
+                <li>Generate embeddings for each chunk via Azure OpenAI (<code>text-embedding-3-small</code> or <code>text-embedding-ada-002</code>).</li>
+                <li>Store chunks + embeddings in <code>dbo.DocumentChunks</code> with the <code>VECTOR</code> column.</li>
+                <li>Build a DiskANN index on the embedding column for fast retrieval.</li>
+            </ol>
+
+            <h4>Phase 2: Querying (Online)</h4>
+            <ol class="steps">
+                <li>User submits a natural language question.</li>
+                <li>Generate a query embedding for the user's question using the same embedding model.</li>
+                <li>Execute vector similarity search in Azure SQL to retrieve top-K relevant chunks.</li>
+                <li>Concatenate retrieved chunks into a context prompt.</li>
+                <li>Send user question + context to Azure OpenAI GPT model and return the answer.</li>
+            </ol>
+
+            <h3>3.3 Complete T-SQL RAG Implementation</h3>
+
+            <pre><code class="language-sql">-- Step 1: Create the knowledge base tables
+CREATE TABLE dbo.KBDocuments (
+    DocId       INT IDENTITY PRIMARY KEY,
+    Title       NVARCHAR(500) NOT NULL,
+    Source      NVARCHAR(500),
+    CreatedAt   DATETIME2 DEFAULT SYSUTCDATETIME()
+);
+
+CREATE TABLE dbo.KBChunks (
+    ChunkId     INT IDENTITY PRIMARY KEY,
+    DocId       INT NOT NULL REFERENCES dbo.KBDocuments(DocId),
+    ChunkText   NVARCHAR(MAX) NOT NULL,
+    Embedding   VECTOR(1536),
+    CONSTRAINT uq_chunk UNIQUE (DocId, ChunkId)
+);
+
+-- Vector index for fast retrieval
+CREATE VECTOR INDEX vix_kb_embedding ON dbo.KBChunks (Embedding)
+    WITH (METRIC = 'cosine', TYPE = 'DiskANN');
+</code></pre>
+
+            <pre><code class="language-sql">-- Step 2: Stored procedure to retrieve relevant context
+CREATE OR ALTER PROCEDURE dbo.RAGRetrieve
+    @Question    NVARCHAR(MAX),
+    @TopK        INT = 5,
+    @Context     NVARCHAR(MAX) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Generate embedding for the question (calls Azure OpenAI via EXTERNAL MODEL)
+    DECLARE @queryEmb VECTOR(1536);
+    SET @queryEmb = AI_GENERATE_EMBEDDINGS(@Question
+        USING MODEL AzureOpenAIEmbeddings);
+
+    -- Retrieve top-K similar chunks
+    SELECT TOP (@TopK)
+        c.ChunkText,
+        d.Title,
+        VECTOR_DISTANCE('cosine', c.Embedding, @queryEmb) AS Score
+    INTO #relevant
+    FROM dbo.KBChunks c
+    JOIN dbo.KBDocuments d ON d.DocId = c.DocId
+    WHERE c.Embedding IS NOT NULL
+    ORDER BY Score ASC;
+
+    -- Build context string
+    SELECT @Context = STRING_AGG(
+        N'[Source: ' + Title + N']' + CHAR(10) + ChunkText,
+        CHAR(10) + CHAR(10)
+    )
+    FROM #relevant;
+END;
+</code></pre>
+
+            <pre><code class="language-sql">-- Step 3: End-to-end RAG query stored procedure
+CREATE OR ALTER PROCEDURE dbo.AskQuestion
+    @Question NVARCHAR(MAX),
+    @Answer   NVARCHAR(MAX) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Retrieve grounding context
+    DECLARE @context NVARCHAR(MAX);
+    EXEC dbo.RAGRetrieve @Question = @Question, @Context = @context OUTPUT;
+
+    -- Build system + user prompt
+    DECLARE @prompt NVARCHAR(MAX) = N'You are a helpful assistant. '
+        + N'Answer the user question ONLY using the provided context. '
+        + N'If the context does not contain the answer, say "I don''t know."'
+        + CHAR(10) + CHAR(10)
+        + N'CONTEXT:' + CHAR(10) + @context;
+
+    -- Call Azure OpenAI GPT model
+    DECLARE @request NVARCHAR(MAX) = JSON_OBJECT(
+        'messages': JSON_ARRAY(
+            JSON_OBJECT('role': 'system', 'content': @prompt),
+            JSON_OBJECT('role': 'user',   'content': @Question)
+        ),
+        'max_tokens': 1000
+    );
+
+    EXEC sp_invoke_external_rest_endpoint
+        @url = N'https://YOUR_OAI.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-01',
+        @method = 'POST',
+        @payload = @request,
+        @response = @Answer OUTPUT;
+END;
+</code></pre>
+
+            <h3>3.4 Hybrid Search (Vector + Full-Text)</h3>
+            <p>
+                For best retrieval quality, combine vector similarity search with traditional keyword (full-text) search.
+                This is called <strong>hybrid search</strong>:
+            </p>
+            <pre><code class="language-sql">-- Enable Full-Text Search on chunk text
+CREATE FULLTEXT CATALOG ft_kb AS DEFAULT;
+CREATE FULLTEXT INDEX ON dbo.KBChunks (ChunkText) KEY INDEX PK_KBChunks;
+
+-- Hybrid search: combine BM25 keyword score with cosine vector score
+DECLARE @queryEmb VECTOR(1536);
+SET @queryEmb = AI_GENERATE_EMBEDDINGS(@Question USING MODEL AzureOpenAIEmbeddings);
+
+SELECT TOP 10
+    c.ChunkId,
+    c.ChunkText,
+    -- Reciprocal Rank Fusion of keyword and vector scores
+    (1.0 / (60 + ROW_NUMBER() OVER (ORDER BY ft.RANK DESC))) +
+    (1.0 / (60 + ROW_NUMBER() OVER (ORDER BY VECTOR_DISTANCE('cosine', c.Embedding, @queryEmb)))) AS RRFScore
+FROM dbo.KBChunks c
+INNER JOIN CONTAINSTABLE(dbo.KBChunks, ChunkText, @Question) AS ft
+    ON c.ChunkId = ft.[KEY]
+ORDER BY RRFScore DESC;
+</code></pre>
+
+            <div class="callout callout-tip">
+                <div class="callout-title">💡 When to Use Hybrid Search</div>
+                <p>Hybrid search outperforms pure vector search for queries that contain specific product codes, names, or acronyms — exact keywords that semantic embeddings may not capture well. Use hybrid search as your default RAG retrieval strategy.</p>
+            </div>
+
+            <button class="mark-read-btn" data-section="skill3">✓ Mark as read</button>
+        </section>
+
+        <!-- ======================================================
+             SECTION 4: T-SQL AI FUNCTIONS
+             ====================================================== -->
+        <section class="study-section" id="skill4">
+            <div class="section-number">Skill Area 4</div>
+            <h2>T-SQL AI Functions and Azure OpenAI Integration</h2>
+            <p class="section-desc">Use built-in AI functions, External Models, and REST integrations to call LLMs and embedding services directly from T-SQL.</p>
+
+            <h3>4.1 External Models</h3>
+            <p>
+                SQL Server 2025 introduces <strong>External Models</strong> — a mechanism to register AI model endpoints
+                (Azure OpenAI, local ONNX models, etc.) and invoke them from T-SQL using standard functions.
+            </p>
+
+            <pre><code class="language-sql">-- Register an Azure OpenAI embedding model
+CREATE EXTERNAL MODEL AzureOpenAIEmbeddings
+    WITH (
+        LOCATION = 'https://YOUR_RESOURCE.openai.azure.com',
+        API_TYPE = 'azure_openai',
+        API_KEY_SECRET = 'AZURE_OPENAI_KEY',
+        DEPLOYMENT = 'text-embedding-ada-002',
+        TASK = 'text-embedding'
+    );
+
+-- Register a chat completion model
+CREATE EXTERNAL MODEL GPT4oChat
+    WITH (
+        LOCATION = 'https://YOUR_RESOURCE.openai.azure.com',
+        API_TYPE = 'azure_openai',
+        API_KEY_SECRET = 'AZURE_OPENAI_KEY',
+        DEPLOYMENT = 'gpt-4o',
+        TASK = 'chat-completion'
+    );
+</code></pre>
+
+            <div class="callout callout-warn">
+                <div class="callout-title">⚠️ Security Note</div>
+                <p>API keys are stored securely using database secrets. Never hard-code API keys in plain T-SQL. Use <code>CREATE DATABASE SCOPED CREDENTIAL</code> or Azure Managed Identity where possible.</p>
+            </div>
+
+            <h3>4.2 AI_GENERATE_EMBEDDINGS</h3>
+            <p>Generate embeddings from text using a registered external model:</p>
+            <pre><code class="language-sql">-- Generate embedding for a single string
+SELECT AI_GENERATE_EMBEDDINGS(
+    N'machine learning and artificial intelligence'
+    USING MODEL AzureOpenAIEmbeddings
+) AS Embedding;
+
+-- Generate and store embeddings in bulk
+UPDATE dbo.DocumentChunks
+SET Embedding = AI_GENERATE_EMBEDDINGS(ChunkText USING MODEL AzureOpenAIEmbeddings)
+WHERE Embedding IS NULL;
+</code></pre>
+
+            <h3>4.3 AI_GENERATE_TEXT (Chat Completions)</h3>
+            <pre><code class="language-sql">-- Generate text using a chat model
+SELECT AI_GENERATE_TEXT(
+    'Summarize this product review in one sentence: ' + ReviewText
+    USING MODEL GPT4oChat
+) AS Summary
+FROM dbo.ProductReviews
+WHERE ReviewId = 42;
+
+-- Batch summarization with CROSS APPLY
+SELECT
+    r.ReviewId,
+    r.ProductId,
+    g.GeneratedSummary
+FROM dbo.ProductReviews r
+CROSS APPLY (
+    SELECT AI_GENERATE_TEXT(
+        N'Classify the sentiment (Positive/Negative/Neutral) and summarize: '
+        + r.ReviewText
+        USING MODEL GPT4oChat
+    ) AS GeneratedSummary
+) g
+WHERE r.CreatedAt > DATEADD(day, -7, SYSUTCDATETIME());
+</code></pre>
+
+            <h3>4.4 Calling Azure OpenAI via sp_invoke_external_rest_endpoint</h3>
+            <p>
+                For more control over the HTTP request (custom headers, retry logic), use
+                <code>sp_invoke_external_rest_endpoint</code>:
+            </p>
+            <div class="callout callout-warn">
+                <div class="callout-title">⚠️ Production Security</div>
+                <p>The example below uses a placeholder API key for illustration. In production, always authenticate via <strong>Azure Managed Identity</strong> (see Section 5.1). Also verify the latest Azure OpenAI API version at <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/reference" target="_blank" rel="noopener noreferrer">aka.ms/oai/docs</a>.</p>
+            </div>
+            <pre><code class="language-sql">DECLARE @payload NVARCHAR(MAX) = JSON_OBJECT(
+    'model'      : 'gpt-4o',
+    'messages'   : JSON_ARRAY(
+        JSON_OBJECT('role': 'system',
+                    'content': 'You are an expert SQL tutor.'),
+        JSON_OBJECT('role': 'user',
+                    'content': 'Explain what a vector index is in SQL Server 2025.')
+    ),
+    'max_tokens' : 500,
+    'temperature': 0.2
+);
+
+DECLARE @response NVARCHAR(MAX);
+EXEC sp_invoke_external_rest_endpoint
+    @url     = N'https://YOUR_RESOURCE.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-01',  -- verify latest API version at aka.ms/oai/docs
+    @method  = 'POST',
+    @headers = '{"Content-Type":"application/json","api-key":"YOUR_API_KEY"}',  -- In production use Managed Identity; never hardcode keys
+    @payload = @payload,
+    @response = @response OUTPUT;
+
+-- Parse the JSON response
+SELECT JSON_VALUE(@response, '$.result.choices[0].message.content') AS Answer;
+</code></pre>
+
+            <h3>4.5 Common AI Task Patterns</h3>
+
+            <h4>Sentiment Analysis</h4>
+            <pre><code class="language-sql">CREATE OR ALTER FUNCTION dbo.GetSentiment(@text NVARCHAR(MAX))
+RETURNS NVARCHAR(20) AS
+BEGIN
+    DECLARE @result NVARCHAR(MAX);
+    SET @result = AI_GENERATE_TEXT(
+        N'Respond with only one word: Positive, Negative, or Neutral. '
+        + N'Sentiment of: ' + @text
+        USING MODEL GPT4oChat
+    );
+    RETURN LTRIM(RTRIM(@result));
+END;
+</code></pre>
+
+            <h4>Entity Extraction</h4>
+            <pre><code class="language-sql">-- Extract named entities as JSON from support tickets
+SELECT
+    TicketId,
+    AI_GENERATE_TEXT(
+        N'Extract a JSON object with keys "product", "issue", "priority" from: '
+        + TicketText
+        USING MODEL GPT4oChat
+    ) AS ExtractedEntities
+FROM dbo.SupportTickets
+WHERE Status = 'Open';
+</code></pre>
+
+            <h4>Translation</h4>
+            <pre><code class="language-sql">-- Translate product descriptions to English
+UPDATE dbo.Products
+SET DescriptionEN = AI_GENERATE_TEXT(
+    N'Translate to English: ' + Description
+    USING MODEL GPT4oChat
+)
+WHERE Language != 'en' AND DescriptionEN IS NULL;
+</code></pre>
+
+            <div class="callout callout-exam">
+                <div class="callout-title">📋 Exam Focus</div>
+                <p>Know the difference between <code>AI_GENERATE_EMBEDDINGS</code> (returns a VECTOR for similarity search) and <code>AI_GENERATE_TEXT</code> (returns NVARCHAR from a chat/completion model). Also understand when to use <code>sp_invoke_external_rest_endpoint</code> vs built-in AI functions.</p>
+            </div>
+
+            <button class="mark-read-btn" data-section="skill4">✓ Mark as read</button>
+        </section>
+
+        <!-- ======================================================
+             SECTION 5: SECURITY & DEVOPS
+             ====================================================== -->
+        <section class="study-section" id="skill5">
+            <div class="section-number">Skill Area 5</div>
+            <h2>Security, Scaling, and DevOps</h2>
+            <p class="section-desc">Design AI-enabled database solutions that are secure, compliant, scalable, and deployed with CI/CD best practices.</p>
+
+            <h3>5.1 Securing AI-Enabled Solutions</h3>
+
+            <h4>Managed Identity for External Models</h4>
+            <p>
+                Prefer <strong>Azure Managed Identity</strong> over API keys for authenticating Azure SQL to Azure OpenAI.
+                This eliminates secret rotation overhead and follows the principle of least privilege.
+            </p>
+            <pre><code class="language-sql">-- Register external model using Managed Identity
+CREATE EXTERNAL MODEL AzureOpenAIEmbeddings
+    WITH (
+        LOCATION = 'https://YOUR_RESOURCE.openai.azure.com',
+        API_TYPE = 'azure_openai',
+        AUTHENTICATION = 'managed_identity',  -- No API key needed
+        DEPLOYMENT = 'text-embedding-ada-002',
+        TASK = 'text-embedding'
+    );
+</code></pre>
+
+            <h4>Row-Level Security for Multi-Tenant AI</h4>
+            <p>In multi-tenant applications, ensure users only retrieve embeddings from their own data:</p>
+            <pre><code class="language-sql">-- Create security policy using RLS
+CREATE SCHEMA Security;
+GO
+
+CREATE FUNCTION Security.RLS_TenantFilter(@TenantId INT)
+RETURNS TABLE WITH SCHEMABINDING AS
+RETURN SELECT 1 AS Result
+WHERE @TenantId = CAST(SESSION_CONTEXT(N'TenantId') AS INT);
+
+CREATE SECURITY POLICY TenantIsolation
+ADD FILTER PREDICATE Security.RLS_TenantFilter(TenantId)
+    ON dbo.KBChunks,
+ADD BLOCK PREDICATE Security.RLS_TenantFilter(TenantId)
+    ON dbo.KBChunks AFTER INSERT;
+
+-- Set tenant context for each session
+EXEC sp_set_session_context @key = N'TenantId', @value = 42;
+</code></pre>
+
+            <h4>Encrypting Sensitive AI Outputs</h4>
+            <pre><code class="language-sql">-- Use Always Encrypted for sensitive LLM outputs (PII in responses)
+-- Define column encryption in the table DDL
+CREATE TABLE dbo.SensitiveResponses (
+    ResponseId    INT IDENTITY PRIMARY KEY,
+    UserId        INT,
+    UserQuery     NVARCHAR(MAX),
+    LLMResponse   NVARCHAR(MAX)
+        ENCRYPTED WITH (
+            COLUMN_ENCRYPTION_KEY = CEK_AI_Outputs,
+            ENCRYPTION_TYPE = Randomized,
+            ALGORITHM = 'AEAD_AES_256_CBC_HMAC_SHA_256'
+        )
+);
+</code></pre>
+
+            <h4>Auditing AI Interactions</h4>
+            <pre><code class="language-sql">-- Log all LLM calls with user context for audit trails
+CREATE TABLE dbo.AIAuditLog (
+    LogId       BIGINT IDENTITY PRIMARY KEY,
+    UserId      NVARCHAR(128) DEFAULT SUSER_SNAME(),
+    AppName     NVARCHAR(256) DEFAULT APP_NAME(),
+    Operation   NVARCHAR(50),
+    InputHash   VARBINARY(32),  -- SHA2 of input (avoid storing PII)
+    TokensUsed  INT,
+    ModelName   NVARCHAR(128),
+    CreatedAt   DATETIME2 DEFAULT SYSUTCDATETIME()
+);
+</code></pre>
+
+            <h3>5.2 Performance and Scaling</h3>
+
+            <h4>Batch Embedding Generation</h4>
+            <pre><code class="language-sql">-- Process embeddings in configurable batches to avoid timeouts
+CREATE OR ALTER PROCEDURE dbo.BatchGenerateEmbeddings
+    @BatchSize INT = 100
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @processed INT = 0;
+
+    WHILE EXISTS (SELECT 1 FROM dbo.KBChunks WHERE Embedding IS NULL)
+    BEGIN
+        UPDATE TOP (@BatchSize) dbo.KBChunks
+        SET Embedding = AI_GENERATE_EMBEDDINGS(ChunkText USING MODEL AzureOpenAIEmbeddings)
+        WHERE Embedding IS NULL;
+
+        SET @processed += @@ROWCOUNT;
+
+        -- Yield to avoid blocking; adjust delay as needed
+        WAITFOR DELAY '00:00:01';
+    END;
+
+    PRINT CAST(@processed AS VARCHAR) + ' rows embedded.';
+END;
+</code></pre>
+
+            <h4>Monitoring Vector Search Performance</h4>
+            <pre><code class="language-sql">-- Monitor vector index health
+SELECT
+    OBJECT_NAME(i.object_id) AS TableName,
+    i.name AS IndexName,
+    p.index_type_desc,
+    p.avg_fragmentation_in_percent,
+    p.page_count
+FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'LIMITED') p
+JOIN sys.indexes i ON i.object_id = p.object_id AND i.index_id = p.index_id
+WHERE i.name LIKE 'vix_%';
+</code></pre>
+
+            <h3>5.3 CI/CD for AI-Enabled Databases</h3>
+
+            <h4>GitHub Actions Workflow for SQL Deployment</h4>
+            <pre><code class="language-yaml"># .github/workflows/deploy-sql.yml
+name: Deploy AI Database Changes
+
+on:
+  push:
+    branches: [main]
+    paths: ['sql/**']
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run SQL migrations
+        uses: azure/sql-action@v2
+        with:
+          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+          path: './sql/migrations/*.sql'
+          action: 'deploy'
+
+      - name: Run schema validation
+        uses: azure/sql-action@v2
+        with:
+          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+          path: './sql/tests/validate_schema.sql'
+          action: 'run'
+
+      - name: Rebuild vector indexes if schema changed
+        uses: azure/sql-action@v2
+        with:
+          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+          path: './sql/maintenance/rebuild_vector_indexes.sql'
+          action: 'run'
+</code></pre>
+
+            <h4>Database Project (dacpac) Best Practices</h4>
+            <ul>
+                <li>Use SQL Server Database Projects (SSDT / SQL Projects extension for VS Code) to version-control schema objects including <code>EXTERNAL MODEL</code> definitions.</li>
+                <li>Store the <code>CREATE EXTERNAL MODEL</code> DDL in source control without secrets; inject secrets via deployment parameters or Key Vault references.</li>
+                <li>Use <code>pre-deployment</code> and <code>post-deployment</code> scripts for data migrations and embedding backfills.</li>
+                <li>Test schema changes against a staging Azure SQL database before deploying to production.</li>
+            </ul>
+
+            <div class="callout callout-tip">
+                <div class="callout-title">💡 DevSecOps Tip</div>
+                <p>Enable <strong>Microsoft Defender for Azure SQL</strong> to detect anomalous query patterns — including potential prompt injection attacks via SQL queries that route untrusted user input to LLMs. Always sanitize and parameterize user inputs before passing them to AI functions.</p>
+            </div>
+
+            <button class="mark-read-btn" data-section="skill5">✓ Mark as read</button>
+        </section>
+
+        <!-- ======================================================
+             SECTION 6: DATA API BUILDER
+             ====================================================== -->
+        <section class="study-section" id="skill6">
+            <div class="section-number">Skill Area 6</div>
+            <h2>Data API Builder</h2>
+            <p class="section-desc">Expose SQL data as REST and GraphQL APIs for AI-driven applications without writing custom middleware.</p>
+
+            <h3>6.1 What is Data API Builder?</h3>
+            <p>
+                <strong>Data API Builder (DAB)</strong> is a Microsoft open-source tool that automatically generates
+                REST and GraphQL APIs on top of existing Azure SQL, SQL Server, MySQL, and Cosmos DB databases.
+                It allows AI applications (LangChain agents, custom GPT actions, etc.) to query SQL data
+                via standard HTTP APIs without requiring application-layer middleware.
+            </p>
+
+            <div class="key-terms-grid">
+                <div class="key-term-card">
+                    <div class="term">REST endpoint</div>
+                    <div class="definition">Automatically generated CRUD endpoints: GET /api/Products, POST /api/Products, PATCH, DELETE.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">GraphQL endpoint</div>
+                    <div class="definition">Single /graphql endpoint supporting flexible queries, mutations, and nested entity resolution.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Entities</div>
+                    <div class="definition">Database tables, views, or stored procedures mapped to API endpoints in dab-config.json.</div>
+                </div>
+                <div class="key-term-card">
+                    <div class="term">Custom Actions</div>
+                    <div class="definition">Map stored procedures (like RAG queries) to custom REST endpoints for AI tool calls.</div>
+                </div>
+            </div>
+
+            <h3>6.2 Configuration</h3>
+            <pre><code class="language-json">// dab-config.json
+{
+  "$schema": "https://dataapibuilder.azureedge.net/schemas/v1.2.0/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('AZURE_SQL_CONNECTION_STRING')"
+  },
+  "runtime": {
+    "rest": { "enabled": true, "path": "/api" },
+    "graphql": { "enabled": true, "path": "/graphql" }
+  },
+  "entities": {
+    "Product": {
+      "source": "dbo.Products",
+      "permissions": [{ "role": "anonymous", "actions": ["read"] }]
+    },
+    "SearchProducts": {
+      "source": {
+        "object": "dbo.SemanticProductSearch",
+        "type": "stored-procedure",
+        "parameters": { "query": "" }
+      },
+      "rest": { "methods": ["GET"] },
+      "permissions": [{ "role": "authenticated", "actions": ["execute"] }]
+    }
+  }
+}
+</code></pre>
+
+            <h3>6.3 Exposing Vector Search via Custom Actions</h3>
+            <pre><code class="language-sql">-- Create a stored procedure DAB can expose as a REST endpoint
+CREATE OR ALTER PROCEDURE dbo.SemanticProductSearch
+    @query   NVARCHAR(MAX),
+    @topK    INT = 5
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @emb VECTOR(1536);
+    SET @emb = AI_GENERATE_EMBEDDINGS(@query USING MODEL AzureOpenAIEmbeddings);
+
+    SELECT TOP (@topK)
+        ProductId,
+        Name,
+        Description,
+        VECTOR_DISTANCE('cosine', Embedding, @emb) AS Score
+    FROM dbo.Products
+    WHERE Embedding IS NOT NULL
+    ORDER BY Score ASC;
+END;
+</code></pre>
+            <p>After mapping this stored procedure in <code>dab-config.json</code>, it becomes available as:<br>
+            <code>GET /api/SearchProducts?query=portable+laptop&topK=5</code></p>
+
+            <h3>6.4 Authentication and Authorization</h3>
+            <pre><code class="language-json">// Role-based access in dab-config.json
+"entities": {
+  "KBChunks": {
+    "source": "dbo.KBChunks",
+    "permissions": [
+      { "role": "anonymous",    "actions": [] },
+      { "role": "reader",       "actions": ["read"] },
+      { "role": "contributor",  "actions": ["create", "read", "update"] },
+      { "role": "admin",        "actions": ["*"] }
+    ]
+  }
+}
+</code></pre>
+
+            <div class="callout callout-info">
+                <div class="callout-title">ℹ️ Integration with Custom GPT / Copilot Studio</div>
+                <p>Data API Builder endpoints can be registered as <strong>OpenAPI actions</strong> in Microsoft Copilot Studio or as <strong>Custom GPT actions</strong> in OpenAI — enabling conversational AI agents to query your SQL database with natural language, backed by vector search and your real data.</p>
+            </div>
+
+            <button class="mark-read-btn" data-section="skill6">✓ Mark as read</button>
+        </section>
+
+        <!-- ======================================================
+             SECTION 7: FLASHCARD QUIZ
+             ====================================================== -->
+        <section class="study-section" id="quiz">
+            <div class="section-number">Practice</div>
+            <h2>Flashcard Quiz</h2>
+            <p class="section-desc">Test your knowledge with these exam-style flashcards. Click a card to reveal the answer, then rate yourself.</p>
+
+            <div class="quiz-controls">
+                <button class="quiz-btn quiz-btn-primary" id="shuffleBtn">🔀 Shuffle</button>
+                <button class="quiz-btn quiz-btn-secondary" id="resetBtn">↺ Reset</button>
+                <select class="quiz-filter" id="filterSelect">
+                    <option value="all">All Topics</option>
+                    <option value="vectors">Vectors & Embeddings</option>
+                    <option value="rag">RAG Workflows</option>
+                    <option value="functions">AI Functions</option>
+                    <option value="security">Security & DevOps</option>
+                    <option value="dab">Data API Builder</option>
+                </select>
+                <span class="quiz-score" id="quizScore">Score: 0 / 0</span>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard">
+                    <div class="flashcard-front">
+                        <div class="flashcard-label">Question</div>
+                        <div class="flashcard-question" id="fcQuestion">Loading…</div>
+                        <div class="flashcard-hint">Click to reveal answer</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="flashcard-label">Answer</div>
+                        <div class="flashcard-answer" id="fcAnswer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rating-btns" id="ratingBtns" style="display:none">
+                <button class="rating-btn rating-know" id="knowBtn">✓ Got it!</button>
+                <button class="rating-btn rating-review" id="reviewBtn">↩ Need review</button>
+            </div>
+
+            <div class="flashcard-nav">
+                <button class="fc-nav-btn" id="prevBtn">← Previous</button>
+                <span class="fc-counter" id="fcCounter">1 / 20</span>
+                <button class="fc-nav-btn" id="nextBtn">Next →</button>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- Mobile toolbar -->
+<div class="mobile-toolbar">
+    <button class="btn-menu-open" id="menuOpenBtn">☰ Contents</button>
+    <button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+</div>
+
+<!-- Prism.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>
+// ===================== FLASHCARD DATA =====================
+const allCards = [
+    {
+        topic: 'vectors',
+        q: 'What is the VECTOR data type in SQL Server 2025?',
+        a: 'A native SQL data type that stores an array of floating-point numbers (embeddings). Syntax: <code>VECTOR(n)</code> where n is the number of dimensions (1–1998). Internally stored as compact binary; input/output uses JSON arrays.'
+    },
+    {
+        topic: 'vectors',
+        q: 'What function computes the distance between two vectors in T-SQL?',
+        a: '<code>VECTOR_DISTANCE(metric, vector1, vector2)</code>. Supported metrics: <code>"cosine"</code>, <code>"euclidean"</code>, <code>"dot"</code>, <code>"neg_dot"</code>. For semantic text similarity, use cosine (lower value = more similar).'
+    },
+    {
+        topic: 'vectors',
+        q: 'What is DiskANN and when should you use it?',
+        a: 'DiskANN (Disk-based Approximate Nearest Neighbor) is the vector index type in SQL Server 2025. Use it when your table has many rows and you need fast (but approximate) nearest-neighbor search. Create with: <code>CREATE VECTOR INDEX … WITH (METRIC=\'cosine\', TYPE=\'DiskANN\')</code>.'
+    },
+    {
+        topic: 'vectors',
+        q: 'What is the difference between cosine distance and dot product similarity?',
+        a: 'Cosine distance normalizes vectors before computing similarity (range 0–2 for cosine). Dot product is the raw product of two vectors (higher = more similar). When vectors are L2-normalized (unit length), they are mathematically equivalent. Azure OpenAI embeddings are normalized, so dot product is slightly faster.'
+    },
+    {
+        topic: 'vectors',
+        q: 'How do you find rows that still need embedding generation efficiently?',
+        a: 'Use a <strong>filtered index</strong>: <code>CREATE INDEX ix_needs_embedding ON dbo.Table (Id) WHERE Embedding IS NULL;</code>. This avoids full table scans when checking for unembedded rows.'
+    },
+    {
+        topic: 'rag',
+        q: 'What is Retrieval-Augmented Generation (RAG)?',
+        a: 'RAG is an architectural pattern that enhances LLM responses by first retrieving relevant context from an external knowledge base (via vector search), then sending that context + user question to the LLM. This grounds the response in real data, reducing hallucinations.'
+    },
+    {
+        topic: 'rag',
+        q: 'What are the two phases of a RAG pipeline?',
+        a: '<strong>1. Indexing (offline):</strong> chunk documents → generate embeddings → store in DB with VECTOR column → build DiskANN index.<br><strong>2. Querying (online):</strong> embed user question → vector similarity search → build context prompt → send to LLM → return answer.'
+    },
+    {
+        topic: 'rag',
+        q: 'What is "hallucination" in the context of LLMs, and how does RAG mitigate it?',
+        a: 'Hallucination is when an LLM generates confident but factually incorrect information based on its training data. RAG mitigates this by providing explicit, retrieved context from your database. The LLM is instructed to answer only using that context, making answers verifiable and factual.'
+    },
+    {
+        topic: 'rag',
+        q: 'What is hybrid search and why is it beneficial for RAG?',
+        a: 'Hybrid search combines vector similarity search with keyword (BM25 / full-text) search. It performs better for queries containing exact product codes, acronyms, or names that semantic embeddings may not represent well. Results are typically merged using Reciprocal Rank Fusion (RRF).'
+    },
+    {
+        topic: 'rag',
+        q: 'What chunking strategy should you use for documents going into a RAG knowledge base?',
+        a: 'Use <strong>overlapping chunking</strong>: split text into segments of ~512–1024 tokens with 10-20% overlap. This prevents context from being cut off at chunk boundaries. Store each chunk with its DocumentId and ChunkIndex so source can be cited.'
+    },
+    {
+        topic: 'functions',
+        q: 'What T-SQL function generates vector embeddings using a registered external model?',
+        a: '<code>AI_GENERATE_EMBEDDINGS(text USING MODEL ModelName)</code>. Returns a VECTOR value. Example: <code>SET @emb = AI_GENERATE_EMBEDDINGS(N\'Hello world\' USING MODEL AzureOpenAIEmbeddings)</code>'
+    },
+    {
+        topic: 'functions',
+        q: 'What T-SQL function invokes a chat/completion LLM from within a query?',
+        a: '<code>AI_GENERATE_TEXT(prompt USING MODEL ModelName)</code>. Returns NVARCHAR. Used for summarization, translation, sentiment analysis, entity extraction, etc. Can be used in SELECT, UPDATE, and with CROSS APPLY.'
+    },
+    {
+        topic: 'functions',
+        q: 'How do you register an Azure OpenAI model in SQL Server 2025?',
+        a: 'Use <code>CREATE EXTERNAL MODEL</code>: specify LOCATION (Azure OpenAI endpoint), API_TYPE (azure_openai), API_KEY_SECRET or managed identity authentication, DEPLOYMENT name, and TASK (text-embedding or chat-completion).'
+    },
+    {
+        topic: 'functions',
+        q: 'What stored procedure is used to call arbitrary HTTP REST endpoints from T-SQL?',
+        a: '<code>sp_invoke_external_rest_endpoint</code>. Parameters: <code>@url</code>, <code>@method</code> (GET/POST), <code>@headers</code>, <code>@payload</code>, <code>@response OUTPUT</code>. Returns JSON response body.'
+    },
+    {
+        topic: 'functions',
+        q: 'What is the difference between AI_GENERATE_EMBEDDINGS and AI_GENERATE_TEXT?',
+        a: '<code>AI_GENERATE_EMBEDDINGS</code> calls an embedding model and returns a <strong>VECTOR</strong> value for similarity search. <code>AI_GENERATE_TEXT</code> calls a chat/completion model and returns <strong>NVARCHAR</strong> text output.'
+    },
+    {
+        topic: 'security',
+        q: 'What is the preferred authentication method for External Models to avoid managing API keys?',
+        a: '<strong>Azure Managed Identity</strong>. Set <code>AUTHENTICATION = \'managed_identity\'</code> in <code>CREATE EXTERNAL MODEL</code>. Eliminates API key rotation, follows least privilege, and integrates with Azure RBAC on the OpenAI resource.'
+    },
+    {
+        topic: 'security',
+        q: 'How do you isolate a multi-tenant AI application at the database layer?',
+        a: 'Use <strong>Row-Level Security (RLS)</strong> with a security policy and filter predicate that checks <code>SESSION_CONTEXT(N\'TenantId\')</code>. This ensures each session can only read/write rows belonging to their tenant, even if the same vector index is shared.'
+    },
+    {
+        topic: 'security',
+        q: 'What CI/CD tool integrates directly with Azure SQL for automated schema deployment?',
+        a: 'The <strong>azure/sql-action</strong> GitHub Actions step. It accepts a connection string (from a GitHub secret) and a path to SQL scripts or a dacpac file. Supports deploy, run, and publish operations.'
+    },
+    {
+        topic: 'dab',
+        q: 'What is Data API Builder and what protocols does it support?',
+        a: 'Data API Builder (DAB) is an open-source Microsoft tool that auto-generates <strong>REST</strong> and <strong>GraphQL</strong> APIs over SQL databases (Azure SQL, SQL Server, MySQL, Cosmos DB) without writing application code. Configured via dab-config.json.'
+    },
+    {
+        topic: 'dab',
+        q: 'How do you expose a stored procedure (e.g., semantic search) as a REST endpoint in Data API Builder?',
+        a: 'In dab-config.json, add an entity with <code>"source": {"object": "dbo.ProcName", "type": "stored-procedure", "parameters": {...}}</code> and <code>"rest": {"methods": ["GET"]}</code>. DAB maps query params to stored procedure parameters automatically.'
+    }
+];
+
+// ===================== QUIZ STATE =====================
+let cards = [...allCards];
+let currentIndex = 0;
+let isFlipped = false;
+let score = { got: 0, total: 0 };
+
+function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+}
+
+function renderCard() {
+    const card = cards[currentIndex];
+    document.getElementById('fcQuestion').textContent = card.q;
+    document.getElementById('fcAnswer').innerHTML = card.a;
+    document.getElementById('fcCounter').textContent = `${currentIndex + 1} / ${cards.length}`;
+
+    // Reset flip
+    const fc = document.getElementById('flashcard');
+    fc.classList.remove('flipped');
+    isFlipped = false;
+    document.getElementById('ratingBtns').style.display = 'none';
+
+    // Nav buttons
+    document.getElementById('prevBtn').disabled = currentIndex === 0;
+    document.getElementById('nextBtn').disabled = currentIndex === cards.length - 1;
+}
+
+function updateScore() {
+    document.getElementById('quizScore').textContent = `Score: ${score.got} / ${score.total}`;
+}
+
+document.getElementById('flashcard').addEventListener('click', function () {
+    this.classList.toggle('flipped');
+    isFlipped = !isFlipped;
+    document.getElementById('ratingBtns').style.display = isFlipped ? 'flex' : 'none';
+});
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+    if (currentIndex < cards.length - 1) { currentIndex++; renderCard(); }
+});
+document.getElementById('prevBtn').addEventListener('click', () => {
+    if (currentIndex > 0) { currentIndex--; renderCard(); }
+});
+
+document.getElementById('knowBtn').addEventListener('click', () => {
+    score.got++; score.total++; updateScore();
+    if (currentIndex < cards.length - 1) { currentIndex++; renderCard(); }
+});
+document.getElementById('reviewBtn').addEventListener('click', () => {
+    score.total++; updateScore();
+    // Move this card to end for re-review
+    const card = cards.splice(currentIndex, 1)[0];
+    cards.push(card);
+    if (currentIndex >= cards.length) currentIndex = cards.length - 1;
+    renderCard();
+});
+
+document.getElementById('shuffleBtn').addEventListener('click', () => {
+    shuffle(cards);
+    currentIndex = 0;
+    renderCard();
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+    const topic = document.getElementById('filterSelect').value;
+    cards = topic === 'all' ? [...allCards] : allCards.filter(c => c.topic === topic);
+    currentIndex = 0;
+    score = { got: 0, total: 0 };
+    updateScore();
+    renderCard();
+});
+
+document.getElementById('filterSelect').addEventListener('change', function () {
+    const topic = this.value;
+    cards = topic === 'all' ? [...allCards] : allCards.filter(c => c.topic === topic);
+    currentIndex = 0;
+    score = { got: 0, total: 0 };
+    updateScore();
+    renderCard();
+});
+
+// ===================== PROGRESS TRACKING =====================
+const STORAGE_KEY = 'dp800_read_sections';
+let readSections = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+const TOTAL_SECTIONS = 7; // overview + 6 skills
+
+function updateProgress() {
+    const count = readSections.size;
+    document.getElementById('progressText').textContent = `${count} / ${TOTAL_SECTIONS} read`;
+    document.getElementById('progressBar').style.width = `${(count / TOTAL_SECTIONS) * 100}%`;
+
+    // Update nav checkmarks
+    document.querySelectorAll('.nav-item[data-section]').forEach(item => {
+        const sec = item.getAttribute('data-section');
+        if (readSections.has(sec)) {
+            item.classList.add('read');
+        } else {
+            item.classList.remove('read');
+        }
+    });
+
+    // Update mark-read buttons
+    document.querySelectorAll('.mark-read-btn[data-section]').forEach(btn => {
+        const sec = btn.getAttribute('data-section');
+        if (readSections.has(sec)) {
+            btn.classList.add('marked');
+            btn.textContent = '✓ Read';
+        } else {
+            btn.classList.remove('marked');
+            btn.textContent = '✓ Mark as read';
+        }
+    });
+}
+
+document.querySelectorAll('.mark-read-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        const sec = this.getAttribute('data-section');
+        if (readSections.has(sec)) {
+            readSections.delete(sec);
+        } else {
+            readSections.add(sec);
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([...readSections]));
+        updateProgress();
+    });
+});
+
+// ===================== ACTIVE NAV HIGHLIGHTING =====================
+const sections = document.querySelectorAll('.study-section');
+const navItems = document.querySelectorAll('.nav-item[data-section]');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navItems.forEach(item => {
+                item.classList.toggle('active', item.getAttribute('href') === `#${id}`);
+            });
+        }
+    });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => observer.observe(s));
+
+// ===================== MOBILE SIDEBAR =====================
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('sidebarOverlay');
+
+document.getElementById('menuOpenBtn').addEventListener('click', () => {
+    sidebar.classList.add('open');
+    overlay.classList.add('visible');
+});
+overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('visible');
+});
+
+// Close sidebar on nav click (mobile)
+document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('visible');
+    });
+});
+
+// ===================== SEARCH =====================
+document.getElementById('searchInput').addEventListener('input', function () {
+    const q = this.value.trim().toLowerCase();
+    if (!q) {
+        navItems.forEach(item => item.style.display = '');
+        document.querySelectorAll('.nav-section-label').forEach(l => l.style.display = '');
+        return;
+    }
+    navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(q) ? '' : 'none';
+    });
+});
+
+// ===================== INIT =====================
+renderCard();
+updateProgress();
+</script>
+</body>
+</html>
