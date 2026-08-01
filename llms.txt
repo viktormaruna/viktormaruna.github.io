@@ -1,25 +1,24 @@
 # Viktor Maruna
 
-> Cloud Solution Architect & Data Engineer | Specializing in Data & AI
+> Personal website of Viktor Maruna, a Cloud Solution Architect & Data Engineer based in Slovakia, specializing in Data & AI — generative AI, large language models (LLMs), data platforms, and cloud architecture on Microsoft Azure.
 
-Viktor Maruna is a Cloud Solution Architect and Data Engineer based in Slovakia, with deep expertise in designing and building Data & AI solutions. His work spans cloud architecture on Microsoft Azure, data platform engineering, generative AI, large language models (LLMs), and machine learning.
+Viktor Maruna designs and builds Data & AI solutions. His areas of expertise:
 
-## Expertise
+- Cloud architecture: Microsoft Azure, cloud-native solutions, scalable infrastructure
+- Data engineering: data pipelines, data platforms, ETL/ELT, data lakes, lakehouses
+- AI and machine learning: generative AI, large language models (LLMs), ML solutions, AI-powered applications
+- Data & AI strategy: enterprise data & AI architecture, solution design, technical advisory
 
-- **Cloud Architecture**: Microsoft Azure, cloud-native solutions, scalable infrastructure
-- **Data Engineering**: Data pipelines, data platforms, ETL/ELT, data lakes, lakehouses
-- **AI & Machine Learning**: Generative AI, large language models (LLMs), ML solutions, AI-powered applications
-- **Data & AI Strategy**: Enterprise data & AI architecture, solution design, technical advisory
+He speaks English and Slovak. This site is a single-page personal profile; his technical writing is published on the dev blog listed below.
 
 ## Contact
 
-- Email: mail@viktormaruna.com
-- LinkedIn: https://www.linkedin.com/in/viktormaruna/
-- GitHub: https://github.com/viktormaruna
-- Dev Blog: https://dev.viktormaruna.com
-- Signal: https://signal.me/#eu/sEdMOWUKhdmkz1o4VId6bZczx2pdunRxrM9qbVA3rXtI3nF1LkVMkqh_SdE8XYp1
+- [Email](mailto:mail@viktormaruna.com): Preferred way to get in touch
+- [LinkedIn](https://www.linkedin.com/in/viktormaruna/): Professional profile and experience
+- [GitHub](https://github.com/viktormaruna): Open-source projects and code
+- [Signal](https://signal.me/#eu/sEdMOWUKhdmkz1o4VId6bZczx2pdunRxrM9qbVA3rXtI3nF1LkVMkqh_SdE8XYp1): Secure messaging
 
 ## Links
 
-- Personal website: https://viktormaruna.com
-- Dev Blog: https://dev.viktormaruna.com
+- [Home page](https://viktormaruna.com/): Personal profile with bio and contact links
+- [Dev Blog](https://dev.viktormaruna.com/): Technical articles on Data & AI, Azure, and engineering
