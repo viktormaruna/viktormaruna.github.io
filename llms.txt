@@ -22,8 +22,3 @@ He speaks English and Slovak. This site is a single-page personal profile; his t
 
 - [Home page](https://viktormaruna.com/): Personal profile with bio and contact links
 - [Dev Blog](https://dev.viktormaruna.com/): Technical articles on Data & AI, Azure, and engineering
-
-## Optional
-
-- [Life counter](https://viktormaruna.com/life/): Fun page showing time elapsed since birth
-- [Pixel art screensaver](https://viktormaruna.com/screensaver/): Browser-based screensaver experiment
