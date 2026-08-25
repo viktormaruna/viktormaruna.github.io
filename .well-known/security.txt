@@ -1,0 +1,7 @@
+# Security contact information for viktormaruna.com (RFC 9116)
+# This is a personal, static website. There is no bug bounty program.
+
+Contact: mailto:security@viktormaruna.com
+Expires: 2027-08-25T00:00:00.000Z
+Preferred-Languages: en, sk
+Canonical: https://viktormaruna.com/.well-known/security.txt
