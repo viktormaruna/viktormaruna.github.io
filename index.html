@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Security -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-6KUkG7YuJXZV6HCzxI3ZVyWWcNLqGLW29VDlVWNIlxI='; style-src 'unsafe-inline'; img-src 'self' https://avatars.githubusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
     <title>Viktor Maruna - Cloud Solution Architect & Data Engineer | Data & AI</title>
     <meta name="description" content="Viktor Maruna is a Cloud Solution Architect & Data Engineer based in Slovakia, specializing in Data & AI solutions — including generative AI, LLMs, data platforms, and cloud architecture on Azure.">
     <meta name="keywords" content="viktor maruna, viktormaruna, cloud solution architect, data engineer, data and ai, azure, generative ai, llm, large language models, data platform, data engineering, machine learning, ai architecture, slovakia, microsoft azure">
@@ -277,7 +282,7 @@
         </section>
                 
         <div class="links">
-            <a href="#" class="link-item" onclick="sendEmail(); return false;" aria-label="Send email to Viktor Maruna">Email</a>
+            <a href="#" class="link-item" id="email-link" aria-label="Send email to Viktor Maruna">Email</a>
             <a href="https://www.linkedin.com/in/viktormaruna/" class="link-item" target="_blank" rel="noopener noreferrer" aria-label="Visit Viktor Maruna's LinkedIn profile">LinkedIn</a>
             <a href="https://github.com/viktormaruna" class="link-item" target="_blank" rel="noopener noreferrer" aria-label="Visit Viktor Maruna's GitHub profile">GitHub</a>
             <a href="https://signal.me/#eu/sEdMOWUKhdmkz1o4VId6bZczx2pdunRxrM9qbVA3rXtI3nF1LkVMkqh_SdE8XYp1" class="link-item" target="_blank" rel="noopener noreferrer" aria-label="Contact Viktor Maruna on Signal">Signal</a>
@@ -301,12 +306,12 @@
     </div>
     
     <script>
-        function sendEmail() {
-            // Obfuscated email address - decoded at runtime
+        // Obfuscated email address - decoded at runtime
+        document.getElementById('email-link').addEventListener('click', function (event) {
+            event.preventDefault();
             const parts = ['mail', '@', 'viktor', 'maruna', '.', 'com'];
-            const email = parts[0] + parts[1] + parts[2] + parts[3] + parts[4] + parts[5];
-            window.location.href = 'mailto:' + email;
-        }
+            window.location.href = 'mailto:' + parts.join('');
+        });
 
         // Dynamic copyright year
         document.getElementById('footer-year').textContent = new Date().getFullYear();

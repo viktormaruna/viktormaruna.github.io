@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+
+    <!-- Security -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-yyCxah9OV4+lpFBTZFhIzn9MrugiFWRzGnhkZ7ALZkg='; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
     <title>Favicon Generator</title>
 </head>
 <body>
@@ -10,8 +16,8 @@
     <canvas id="favicon" width="32" height="32" style="border: 1px solid #ccc; image-rendering: pixelated; width: 160px; height: 160px;"></canvas>
     <br><br>
     
-    <button onclick="downloadFavicon()">Download as ICO</button>
-    <button onclick="downloadPNG()">Download as PNG</button>
+    <button id="download-ico">Download as ICO</button>
+    <button id="download-png">Download as PNG</button>
     
     <script>
         const canvas = document.getElementById('favicon');
@@ -49,20 +55,21 @@
         ctx.textAlign = 'center';
         ctx.fillText('V', 16, 26);
         
-        function downloadPNG() {
+        function download(filename) {
             const link = document.createElement('a');
-            link.download = 'favicon-32x32.png';
+            link.download = filename;
             link.href = canvas.toDataURL();
             link.click();
         }
-        
-        function downloadFavicon() {
-            // For ICO, we'll use the PNG data
-            const link = document.createElement('a');
-            link.download = 'favicon.ico';
-            link.href = canvas.toDataURL();
-            link.click();
-        }
+
+        document.getElementById('download-png').addEventListener('click', function () {
+            download('favicon-32x32.png');
+        });
+
+        // For ICO, we'll use the PNG data
+        document.getElementById('download-ico').addEventListener('click', function () {
+            download('favicon.ico');
+        });
     </script>
 </body>
 </html>
